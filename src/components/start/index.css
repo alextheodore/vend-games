@@ -1,0 +1,18 @@
+.ant-modal-title {
+  text-align: center;
+}
+
+.ant-modal {
+    text-align: -webkit-center !important;
+    max-width: unset;
+    margin: unset;
+}
+
+.ant-modal-centered::before {
+    content: unset;
+}
+
+.ant-modal-content {
+  width: 50% !important;
+  height: 50vh !important;
+}

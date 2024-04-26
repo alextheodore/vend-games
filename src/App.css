@@ -36,3 +36,7 @@
     transform: rotate(360deg);
   }
 }
+
+.background {
+  background: "url:(/assets/background.jpg)";
+}
