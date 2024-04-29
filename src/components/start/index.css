@@ -1,5 +1,7 @@
 .ant-modal-title {
   text-align: center;
+  font-size: 50px !important;
+  color: blue !important;
 }
 
 .ant-modal {
@@ -12,7 +14,22 @@
     content: unset;
 }
 
-.ant-modal-content {
-  width: 50% !important;
-  height: 50vh !important;
+.ant-modal-root .ant-modal-centered .ant-modal {
+  top: 90px !important;
 }
+
+.ant-modal-content {
+  width: 90% !important;
+  height: 50vh !important;
+  border-radius: 30px !important;
+  padding-top: 80px !important;
+  -webkit-border-radius: 30px !important;
+  -moz-border-radius: 30px !important;
+  -ms-border-radius: 30px !important;
+  -o-border-radius: 30px !important;
+}
+
+.ant-btn {
+  font-size: 20px !important;
+}
+
