@@ -10,7 +10,7 @@
     align-items: center;
     flex-direction: column;
     width: 70vw !important;
-    height: 40vh !important;
+    height: 30vh !important;
 }
 
 .card {
@@ -38,4 +38,7 @@
     margin-top: 2vh !important;
     width: 70vw !important;
     height: 8vh !important;
+    font-size: 40px !important;
+    color: blue;
+    font-weight: 300 !important;
 }
