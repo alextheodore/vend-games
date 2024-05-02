@@ -9,15 +9,19 @@ import BRI from "../../assets/BRI_white.png";
 import Quiz from "../../assets/quiz.png";
 import useQuery from "../Hooks";
 import Check from "../../assets/check.gif";
+import Error from "../../assets/err.gif"
 import Question from "../question";
 import { useEffect } from "react";
+import { dummyData } from "../../dummy";
 
-function StartComponent({ question }) {
+function StartComponent({ question }) { 
   const navigate = useNavigate();
   const [timer, setTimer] = useState(15);
   const [open, setOpen] = useState(true);
   const [openCorrectAnswer, setOpenCorrectAnswer] = useState(false);
+  const [openFalseAnswer, setOpenFalseAnswer] = useState(false)
   const [correctAnswer, setcorrectAnswer] = useState(null);
+  const [falseAnswer, setfalseAnswer] =  useState(null);
   let query = useQuery();
   let currentID = query.get("id") ?? 0;
   console.log(question[parseInt(currentID) - 1]);
@@ -26,9 +30,16 @@ function StartComponent({ question }) {
     setOpen(true);
   };
   const handleOk = (e) => {
+    const intID = parseInt(currentID) + 1;
+    if ((parseInt(currentID)===dummyData.length)) {
+      navigate("form")
+      return;
+    }
     console.log(e);
     setOpen(false);
-    navigate(`/?id=${parseInt((currentID += 1))}`);
+    setOpenCorrectAnswer(false);
+    setOpenFalseAnswer(false);
+    navigate(`/?id=${intID}`);
   };
   const handleCancel = (e) => {
     console.log(e);
@@ -51,16 +62,35 @@ function StartComponent({ question }) {
       </Button>
     </div>
   );
-
+  
   const modalFooterCorrectAnswer = (
     <div style={{ position: "relative" }}>
       <Button
-        className="btn-answer"
+        className="btn-correct-answer"
         onClick={handleOk}
         type={"primary"}
         style={{
           position: "absolute",
-          bottom: "-236px",
+          bottom: "-380px",
+          left: "50%",
+          transform: "translateX(-50%)",
+        }}
+      >
+        Selanjutnya
+      </Button>
+    </div>
+  );
+
+  
+  const modalFooterFalseAnswer = (
+    <div style={{ position: "relative" }}>
+      <Button
+        className="btn-false-answer"
+        onClick={handleOk}
+        type={"primary"}
+        style={{
+          position: "absolute",
+          bottom: "-380px",
           left: "50%",
           transform: "translateX(-50%)",
         }}
@@ -76,10 +106,15 @@ function StartComponent({ question }) {
       setcorrectAnswer(data.answer);
       setOpenCorrectAnswer(true);
     }
-    // else {
-    //   setcorrectAnswer(data.answer);
-    //   setOpenCorrectAnswer(true);
-    // }
+    else{
+      console.log("find 1-> ",dummyData.find(item => item.no === parseInt(currentID)));
+      const correctAnswer = dummyData.find(item => item.no === parseInt(currentID)).answer.find(answer => answer.status === true)?.answer;
+      setfalseAnswer(correctAnswer);
+      console.log("correct answer->", correctAnswer)
+      console.log(currentID)
+
+      setOpenFalseAnswer(true);
+    }
   
   };
 
@@ -134,6 +169,7 @@ function StartComponent({ question }) {
           centered
           title="Jawaban Benar"
           open={openCorrectAnswer}
+          
           onOk={(e) => handleOk(e)}
           okButtonProps={{
             disabled: true,
@@ -147,8 +183,29 @@ function StartComponent({ question }) {
           footer={modalFooterCorrectAnswer}
           width={900}
         >
-          <img src={Check} style={{ width: "95%" }} />
-          <text style={{ fontSize: "50px" }}>{correctAnswer}</text>
+          <img src={Check} style={{ width: "95%"}} />
+          <text className="correct-answer-BRI" style={{backgroundColor: "greenyellow", fontSize: "60px", borderRadius: "15px", padding: "15px"}}>{correctAnswer}</text>
+        </Modal>
+
+        <Modal
+          centered
+          title="Oopss Jawaban Salah"
+          open={openFalseAnswer}
+          onOk={(e) => handleOk(e)}
+          okButtonProps={{
+            disabled: true,
+          }}
+          okText="Selanjutnya"
+          cancelButtonProps={{
+            disabled: true,
+            style: { visibility: "hidden" },
+          }}
+          closable={false}
+          footer={modalFooterFalseAnswer}
+          width={900}
+        >
+          <img src={Error} style={{ width: "95%" }} />
+          <text className="false-answer-BRI" style={{ backgroundColor: "greenyellow", fontSize: "60px", borderRadius: "15px", padding: "15px" }}>{falseAnswer}</text>
         </Modal>
 
         <div

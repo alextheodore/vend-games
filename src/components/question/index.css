@@ -1,53 +1,64 @@
 .question-card {
-    background-color: white;
-    border-radius: 40px !important;
-    -webkit-border-radius: 40px !important;
-    -moz-border-radius: 40px !important;
-    -ms-border-radius: 40px !important;
-    -o-border-radius: 40px !important;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    width: 80vw !important;
-    height: 30vh !important;
+  background-color: white;
+  border-radius: 40px !important;
+  -webkit-border-radius: 40px !important;
+  -moz-border-radius: 40px !important;
+  -ms-border-radius: 40px !important;
+  -o-border-radius: 40px !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 80vw !important;
+  height: 30vh !important;
 }
 
 .card {
-    padding: 1px !important;
+  padding: 1px !important;
 }
 
 .BRI {
-    font-size: 50px !important;
+  font-size: 50px !important;
+  text-align: center !important;
 }
 
 .card-img {
-    width: 35% !important;
+  width: 35% !important;
 }
 
 .answer {
-    border-radius: 40px !important;
-    -webkit-border-radius: 40px !important;
-    -moz-border-radius: 40px !important;
-    -ms-border-radius: 40px !important;
-    -o-border-radius: 40px !important;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 2.5vh !important;
-    width: 80vw !important;
-    height: 6.8vh !important;
-    font-size: 40px !important;
-    color: blue;
-    font-weight: 200px !important;
+  border-radius: 40px !important;
+  -webkit-border-radius: 40px !important;
+  -moz-border-radius: 40px !important;
+  -ms-border-radius: 40px !important;
+  -o-border-radius: 40px !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2.5vh !important;
+  width: 80vw !important;
+  height: 6.8vh !important;
+  font-size: 40px !important;
+  color: blue;
+  font-weight: 200px !important;
 }
 
-.btn-answer {
-    width: 106% !important;
-    height: 5vh !important;
-    border-radius: 28px !important;
-    -webkit-border-radius: 28px !important;
-    -moz-border-radius: 28px !important;
-    -ms-border-radius: 28px !important;
-    -o-border-radius: 28px !important;
+.btn-correct-answer {
+  width: 106% !important;
+  height: 7vh !important;
+  border-radius: 28px !important;
+  -webkit-border-radius: 28px !important;
+  -moz-border-radius: 28px !important;
+  -ms-border-radius: 28px !important;
+  -o-border-radius: 28px !important;
+}
+
+.btn-false-answer {
+  width: 106% !important;
+  height: 7vh !important;
+  border-radius: 28px !important;
+  -webkit-border-radius: 28px !important;
+  -moz-border-radius: 28px !important;
+  -ms-border-radius: 28px !important;
+  -o-border-radius: 28px !important;
 }

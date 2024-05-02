@@ -19,11 +19,11 @@
 }
 
 .ant-modal-content {
-  width: 95% !important;
-  height: 58vh !important;
+  width: 100% !important;
+  height: 67vh !important;
   border-radius: 30px !important;
-  margin-top: 50px !important;
-  padding-top: 50px !important;
+  margin-top: 100px !important;
+  padding-top: 120px !important;
   padding-bottom: 1px !important;
   -webkit-border-radius: 30px !important;
   -moz-border-radius: 30px !important;
@@ -33,8 +33,8 @@
 
 .ant-btn {
   font-size: 50px !important;
-  width: 25vw !important;
-  height: 5vh !important;
+  width: 30vw !important;
+  height: 6vh !important;
   border-radius: 20px;
   -webkit-border-radius: 20px;
   -moz-border-radius: 20px;
@@ -45,5 +45,4 @@
 .ant-modal .ant-modal-footer {
   padding: 0px !important;
 }
-
 
