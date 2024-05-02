@@ -1,6 +1,6 @@
 .ant-modal-title {
   text-align: center;
-  font-size: 50px !important;
+  font-size: 70px !important;
   color: blue !important;
 }
 
@@ -15,14 +15,16 @@
 }
 
 .ant-modal-root .ant-modal-centered .ant-modal {
-  top: 90px !important;
+  top: 110px !important;
 }
 
 .ant-modal-content {
-  width: 90% !important;
-  height: 50vh !important;
+  width: 95% !important;
+  height: 58vh !important;
   border-radius: 30px !important;
-  padding-top: 80px !important;
+  margin-top: 50px !important;
+  padding-top: 50px !important;
+  padding-bottom: 1px !important;
   -webkit-border-radius: 30px !important;
   -moz-border-radius: 30px !important;
   -ms-border-radius: 30px !important;
@@ -30,6 +32,18 @@
 }
 
 .ant-btn {
-  font-size: 20px !important;
+  font-size: 50px !important;
+  width: 25vw !important;
+  height: 5vh !important;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
 }
+
+.ant-modal .ant-modal-footer {
+  padding: 0px !important;
+}
+
 

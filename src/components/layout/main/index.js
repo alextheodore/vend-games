@@ -4,7 +4,7 @@ function MainLayout({children}) {
   return (
     <div>
         <div>
-            
+
         </div>
         <div>
             {children}

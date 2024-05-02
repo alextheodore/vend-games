@@ -1,7 +1,7 @@
 import React from "react";
 import "./index.css";
 
-function Question({ data }) {
+function Question({ data, onClickAnswer }) {
   return (
     <>
       <div className="question-card">
@@ -10,7 +10,16 @@ function Question({ data }) {
       </div>
 
       {data?.answer.map((data, index) => (
-        <button className="answer" key={index}>{data?.answer}</button>
+        <button
+          className="answer"
+          onClick={(e) => {
+            e.preventDefault();
+            onClickAnswer(data);
+          }}
+          key={index}
+        >
+          {data?.answer}
+        </button>
       ))}
     </>
   );
