@@ -1,3 +1,52 @@
-.form {
+/* .form {
     font-size: 20px !important;
+    width: 90vw !important;
+} */
+
+label.ant-form-item-required {
+    width: 90% !important;
+    font-size: 45px !important;
+    height: 10vh !important;
+    text-align: center !important;
+}
+
+.ant-form-item .ant-form-item-control {
+    place-self: center;
+}
+
+.ant-form {
+    background-color: #005ce6;
+    border-radius: 35px;
+    padding-top: 120px !important;
+    height: 50vh;
+    margin-top: 90px;
+    margin-left: 40px;
+    -webkit-border-radius: 35px;
+    -moz-border-radius: 35px;
+    -ms-border-radius: 35px;
+    -o-border-radius: 35px;
+}
+
+.ant-form-item .ant-form-item-label >label {
+    color: white !important;
+    font-weight: bolder !important;
+}
+
+/* .ant-input {
+    height: 3vh !important;
+    margin-right: 5px !important;
+} */
+
+.form-input-nama {
+    height: 3.5vh !important;
+    width: 90%;
+}
+
+.form-input-password {
+    height: 3.5vh !important;
+    width: 90%;
+}
+
+.ant-btn {
+    margin-top: 80px !important;
 }

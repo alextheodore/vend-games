@@ -11,6 +11,8 @@ import Error from "../../assets/err.gif";
 import Question from "../question";
 import { useEffect } from "react";
 import { dummyData } from "../../dummy";
+import "./index.css";
+
 
 function FormComponent() {
   const onFinish = (values) => {
@@ -41,13 +43,13 @@ function FormComponent() {
           <Form
             name="basic"
             labelCol={{
-              span: 8,
+              span: 10,
             }}
             wrapperCol={{
-              span: 16,
+              span: 24,
             }}
             style={{
-              maxWidth: 600,
+              maxWidth: 1000,
             }}
             initialValues={{
               remember: true,
@@ -56,17 +58,17 @@ function FormComponent() {
             onFinishFailed={onFinishFailed}
             autoComplete="off"
           >
-            <Form.Item
-              label="Username"
-              name="username"
+            <Form.Item className="form-username"
+              label="Nama"
+              name="nama"
               rules={[
                 {
                   required: true,
-                  message: "Please input your username!",
+                  message: "Please input your name!",
                 },
-              ]}
+              ]} 
             >
-              <Input />
+              <Input className="form-input-nama"/>
             </Form.Item>
 
             <Form.Item
@@ -79,7 +81,7 @@ function FormComponent() {
                 },
               ]}
             >
-              <Input.Password />
+              <Input.Password className="form-input-password" />
             </Form.Item>
 
             <Form.Item
@@ -90,7 +92,7 @@ function FormComponent() {
                 span: 16,
               }}
             >
-              <Checkbox>Remember me</Checkbox>
+              <Checkbox style={{ fontSize: "40px", width: "90%" }}>Remember me</Checkbox>
             </Form.Item>
 
             <Form.Item
