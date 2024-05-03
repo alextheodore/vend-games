@@ -12,15 +12,34 @@ import Question from "../question";
 import { useEffect } from "react";
 import { dummyData } from "../../dummy";
 import "./index.css";
-
+import Keyboard from "react-simple-keyboard";
+import "react-simple-keyboard/build/css/index.css";
 
 function FormComponent() {
+  const [form] = Form.useForm();
+  const onChanged = (input) => console.log(input);
+  const [hiddenKeyboard, setHiddenKeyboard] = useState(true);
+  // form.setFieldsValue //nama:value masuk ke onChanged
   const onFinish = (values) => {
     console.log("Success:", values);
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
+
+  useEffect(() => {
+    function clickHanlder(e) {
+      if (
+        !(e.target.nodeName === "INPUT") &&
+        !e.target.classList.contains("hg-button")
+      ) {
+        setHiddenKeyboard(true);
+      }
+    }
+
+    window.addEventListener("click", clickHanlder);
+    return window.removeEventListener("click", clickHanlder, true);
+  }, []);
   return (
     <>
       <div>
@@ -58,7 +77,8 @@ function FormComponent() {
             onFinishFailed={onFinishFailed}
             autoComplete="off"
           >
-            <Form.Item className="form-username"
+            <Form.Item
+              className="form-username"
               label="Nama"
               name="nama"
               rules={[
@@ -66,9 +86,12 @@ function FormComponent() {
                   required: true,
                   message: "Please input your name!",
                 },
-              ]} 
+              ]}
             >
-              <Input className="form-input-nama"/>
+              <Input
+                className="form-input-nama"
+                onFocus={() => setHiddenKeyboard(false)}
+              />
             </Form.Item>
 
             <Form.Item
@@ -92,7 +115,9 @@ function FormComponent() {
                 span: 16,
               }}
             >
-              <Checkbox style={{ fontSize: "40px", width: "90%" }}>Remember me</Checkbox>
+              <Checkbox style={{ fontSize: "40px", width: "90%" }}>
+                Remember me
+              </Checkbox>
             </Form.Item>
 
             <Form.Item
@@ -106,6 +131,7 @@ function FormComponent() {
               </Button>
             </Form.Item>
           </Form>
+          {!hiddenKeyboard && <Keyboard onChange={onChanged} />}
         </MainLayout>
       </div>
     </>

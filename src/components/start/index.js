@@ -46,14 +46,20 @@ function StartComponent({ question }) {
     setOpen(false);
   };
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     setTimer(timer-1)
-  //   }, 1000);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if(timer===0) {
+        const intID = parseInt(currentID) + 1;
+        setTimer(15)
+        navigate(`/?id=${intID}`);
+      }else{
+        setTimer(timer-1)
+      }
+    }, 1000);
 
-  //   return () => clearInterval(interval);
-  // }, [timer]);
-  //   console.log(timer)
+    return () => clearInterval(interval);
+  }, [timer]);
+    console.log(timer)
 
   const modalFooter = (
     <div style={{ textAlign: "center"}}>
@@ -141,9 +147,9 @@ function StartComponent({ question }) {
               Nomor {currentID}
             </p>
           </div>
-          {/* <div className="right">
-            Waktu
-          </div> */}
+          <div className="timer">
+            Waktu{timer}
+          </div>
         </div>
         <Modal
           centered
