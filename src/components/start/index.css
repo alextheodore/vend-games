@@ -1,17 +1,17 @@
 .ant-modal-title {
   text-align: center;
   font-size: 70px !important;
-  color: blue !important;
+  color: #FF4500!important;
 }
 
 .ant-modal {
-    text-align: -webkit-center !important;
-    max-width: unset;
-    margin: unset;
+  text-align: -webkit-center !important;
+  max-width: unset;
+  margin: unset;
 }
 
 .ant-modal-centered::before {
-    content: unset;
+  content: unset;
 }
 
 .ant-modal-root .ant-modal-centered .ant-modal {
@@ -19,10 +19,10 @@
 }
 
 .ant-modal-content {
-  width: 100% !important;
-  height: 67vh !important;
+  width: 95% !important;
+  height: 68vh !important;
   border-radius: 30px !important;
-  margin-top: 100px !important;
+  margin-top: 20px !important;
   padding-top: 120px !important;
   padding-bottom: 1px !important;
   -webkit-border-radius: 30px !important;
@@ -36,6 +36,7 @@
   width: 30vw !important;
   height: 6vh !important;
   border-radius: 20px;
+  background-color: #FF6347;
   -webkit-border-radius: 20px;
   -moz-border-radius: 20px;
   -ms-border-radius: 20px;
@@ -46,6 +47,23 @@
   padding: 0px !important;
 }
 
-.timer{
-  font-size: 40px;
+.header {
+  display: flex;
+  flex-direction: row;
+  padding-top: 40px;
+}
+
+.right-timer {
+  font-size: 50px;
+  color: white;
+  padding-top: 50px;
+  padding-left: 435px;
+}
+
+.line {
+  background-color: white;
+  height: 3px;
+  width: 850px;
+  margin-top: -50px;
+  margin-bottom: 90px;
 }

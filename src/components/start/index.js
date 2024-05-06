@@ -77,7 +77,7 @@ function StartComponent({ question }) {
         type={"primary"}
         style={{
           position: "absolute",
-          bottom: "-380px",
+          bottom: "-384px",
           left: "50%",
           transform: "translateX(-50%)",
         }}
@@ -96,7 +96,7 @@ function StartComponent({ question }) {
         type={"primary"}
         style={{
           position: "absolute",
-          bottom: "-380px",
+          bottom: "-258px",
           left: "50%",
           transform: "translateX(-50%)",
         }}
@@ -132,25 +132,26 @@ function StartComponent({ question }) {
         </div>
         <div
           className="logo-quiz"
-          style={{ textAlign: "center", padding: "15px" }}
+          style={{ textAlign: "center", paddingTop: "-150px" }}
         >
           <img
             src={Quiz}
-            style={{ width: "32%", alignItems: "center", padding: "" }}
+            style={{ width: "32%", alignItems: "center"}}
           />
         </div>
-        <div>
+        <div className="header">
           <div className="left-nomor">
             <p
-              style={{ fontSize: "50px", color: "white", paddingLeft: "180px" }}
+              style={{ fontSize: "50px", color: "white", paddingLeft: "110px" }}
             >
               Nomor {currentID}
             </p>
           </div>
-          <div className="timer">
-            Waktu{timer}
+          <div className="right-timer">
+            Waktu : {timer} 
           </div>
         </div>
+        <hr className="line"></hr>
         <Modal
           centered
           title="- BRI QUIZ -"
@@ -211,7 +212,8 @@ function StartComponent({ question }) {
           width={900}
         >
           <img src={Error} style={{ width: "95%" }} />
-          <text className="false-answer-BRI" style={{ backgroundColor: "greenyellow", fontSize: "60px", borderRadius: "15px", padding: "15px" }}>{falseAnswer}</text>
+          <p style={{ fontSize: "40px", fontWeight: "bold" }}>yang benar adalah...</p>
+          <text className="false-answer-BRI" style={{ backgroundColor: "#00FF00", fontSize: "60px", borderRadius: "15px", padding: "15px" }}>{falseAnswer}</text>
         </Modal>
 
         <div
