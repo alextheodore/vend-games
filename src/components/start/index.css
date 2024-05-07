@@ -44,6 +44,19 @@
   -o-border-radius: 20px;
 }
 
+.btn-stop {
+  font-size: 50px !important;
+  font-weight: 700;
+  width: 35vw !important;
+  height: 6vh !important;
+  border-radius: 20px;
+  background-color: #FF7F50 !important;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+}
+
 .ant-modal .ant-modal-footer {
   padding: 0px !important;
 }
