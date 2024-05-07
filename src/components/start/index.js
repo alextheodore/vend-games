@@ -75,18 +75,14 @@ function StartComponent({ question }) {
   }, [timer]);
   console.log(timer);
 
-  // else if (parseInt(currentID) !== parseInt(currentID) - 1) {
-  //   setTimer(15);
-  // }
-
-  useEffect(() => {
-    // setTimer(15);
-    console.log(timer);
-    if (timer === 0) {
-      // setOpenTimeStop(false);
-      setTimer(15);
-    }
-  }, []);
+  // useEffect(() => {
+  //   // setTimer(15);
+  //   console.log(timer);
+  //   if (timer === 0) {
+  //     // setOpenTimeStop(false);
+  //     setTimer(15);
+  //   }
+  // }, []);
 
   const modalFooter = (
     <div style={{ textAlign: "center" }}>
