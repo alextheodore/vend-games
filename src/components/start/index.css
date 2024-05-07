@@ -33,10 +33,11 @@
 
 .ant-btn {
   font-size: 50px !important;
+  font-weight: 700;
   width: 30vw !important;
   height: 6vh !important;
   border-radius: 20px;
-  background-color: #FF6347;
+  background-color: #FF7F50;
   -webkit-border-radius: 20px;
   -moz-border-radius: 20px;
   -ms-border-radius: 20px;
@@ -66,4 +67,8 @@
   width: 850px;
   margin-top: -50px;
   margin-bottom: 90px;
+}
+
+.btn-stop {
+  width: 80vw !important;
 }
