@@ -40,3 +40,13 @@ label.ant-form-item-required {
 .ant-btn {
     margin-top: 80px !important;
 }
+
+.react-simple-keyboard {
+    width: 100% !important;
+    padding: 20px !important;
+    margin-top: 85px !important;
+    margin-left: 1px !important;
+    margin-right: 100px !important;
+    background-color: darkslateblue !important;
+    height: 14vh !important;
+}

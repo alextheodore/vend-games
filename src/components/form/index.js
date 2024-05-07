@@ -95,8 +95,8 @@ function FormComponent() {
             </Form.Item>
 
             <Form.Item
-              label="Password"
-              name="password"
+              label="Nomor HP"
+              name="nomor"
               rules={[
                 {
                   required: true,
