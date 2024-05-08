@@ -56,12 +56,15 @@ function StartComponent({ question }) {
       const interval = setInterval(() => {
         if (timer === 0) {
           // const intID = parseInt(currentID) + 1;
-          const correctAnswer = dummyData
-            .find((item) => item.no === parseInt(currentID))
-            .answer.find((answer) => answer.status === true)?.answer;
-          settimeStop(correctAnswer);
-          setOpenTimeStop(true);
-          clearInterval(interval);
+          if (parseInt(currentID)) {
+            const correctAnswer = dummyData
+              .find((item) => item.no === parseInt(currentID))
+              .answer?.find((answer) => answer.status === true)?.answer;
+            // const correctAnswer = "randomAnswer"
+            settimeStop(correctAnswer);
+            setOpenTimeStop(true);
+            clearInterval(interval);
+          }
           // setTimer(15);
           // navigate(`/?id=${intID}`);
         } else {
