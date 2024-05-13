@@ -1,7 +1,7 @@
 import React from "react";
 import "./index.css";
 
-function Question({ data, onClickAnswer }) {
+function Question({ data, onClickAnswer}) {
   return (
     <>
       <div className="question-card">

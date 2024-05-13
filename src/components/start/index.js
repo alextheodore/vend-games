@@ -55,16 +55,21 @@ function StartComponent({ question }) {
     if (timer >= 0) {
       const interval = setInterval(() => {
         if (timer === 0) {
-          // const intID = parseInt(currentID) + 1;
-          if (parseInt(currentID)) {
-            const correctAnswer = dummyData
-              .find((item) => item.no === parseInt(currentID))
-              .answer?.find((answer) => answer.status === true)?.answer;
-            // const correctAnswer = "randomAnswer"
+          const correctAnswer = dummyData
+            .find((item) => item.no === parseInt(currentID))
+            .answer?.find((answer) => answer.status === true)?.answer;
+          if (openCorrectAnswer) {
+            settimeStop(correctAnswer);
+          }
+          // Check if incorrect answer is open
+          else if (openFalseAnswer) {
+            settimeStop(correctAnswer);
+          } else {
             settimeStop(correctAnswer);
             setOpenTimeStop(true);
-            clearInterval(interval);
+            console.log(timer, "ini timer di else");
           }
+          // clearInterval(interval);
           // setTimer(15);
           // navigate(`/?id=${intID}`);
         } else {
@@ -76,7 +81,7 @@ function StartComponent({ question }) {
       return () => clearInterval(interval);
     }
   }, [timer]);
-  console.log(timer);
+  // console.log(timer);
 
   // useEffect(() => {
   //   // setTimer(15);
