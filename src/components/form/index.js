@@ -17,7 +17,18 @@ import "react-simple-keyboard/build/css/index.css";
 
 function FormComponent() {
   const [form] = Form.useForm();
-  const onChanged = (input) => console.log(input);
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [activeInput, setActiveInput] = useState("");
+  const onChanged = (input) => {
+    console.log(input);
+    form.setFieldsValue({
+      [activeInput]: input,
+    });
+  };
+
+  // form.setFieldValue("nama", input);
+  // form.setFieldValue("nomor", input);
   const [hiddenKeyboard, setHiddenKeyboard] = useState(true);
   // form.setFieldsValue //nama:value masuk ke onChanged
   const onFinish = (values) => {
@@ -60,6 +71,7 @@ function FormComponent() {
             />
           </div>
           <Form
+            form={form}
             name="basic"
             labelCol={{
               span: 10,
@@ -90,7 +102,10 @@ function FormComponent() {
             >
               <Input
                 className="form-input-nama"
-                onFocus={() => setHiddenKeyboard(false)}
+                onFocus={() => {
+                  setHiddenKeyboard(false);
+                  setActiveInput("nama");
+                }}
               />
             </Form.Item>
 
@@ -104,7 +119,13 @@ function FormComponent() {
                 },
               ]}
             >
-              <Input.Password className="form-input-password" />
+              <Input.Password
+                className="form-input-password"
+                onFocus={() => {
+                  setHiddenKeyboard(false);
+                  setActiveInput("nomor");
+                }}
+              />
             </Form.Item>
 
             <Form.Item
@@ -132,7 +153,6 @@ function FormComponent() {
             </Form.Item>
           </Form>
           {!hiddenKeyboard && <Keyboard onChange={onChanged} />}
-
         </MainLayout>
       </div>
     </>

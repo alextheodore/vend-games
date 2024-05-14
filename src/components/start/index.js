@@ -55,23 +55,31 @@ function StartComponent({ question }) {
     if (timer >= 0) {
       const interval = setInterval(() => {
         if (timer === 0) {
-          const correctAnswer = dummyData
-            .find((item) => item.no === parseInt(currentID))
-            .answer?.find((answer) => answer.status === true)?.answer;
-          if (openCorrectAnswer) {
-            settimeStop(correctAnswer);
+          // const intID = parseInt(currentID) + 1;
+          if (parseInt(currentID) > 0) {
+            //kondisi ketika halaman start muncul, maka belum ada timer waktunya (15 detik), lalu ketika klik tombol selanjutnya baru masuk ke nomor 1 dan ada timernya 15 detik
+            // console.log(parseInt(currentID), "test");
+            const correctAnswer = dummyData
+              .find((item) => item.no === parseInt(currentID))
+              .answer?.find((answer) => answer.status === true)?.answer;
+            if (openCorrectAnswer) {
+              settimeStop(correctAnswer);
+            }
+            // Check if incorrect answer is open
+            else if (openFalseAnswer) {
+              settimeStop(correctAnswer);
+              // setOpenFalseAnswer(false); // Close incorrect answer option
+              // settimeStop(correctAnswer);
+            } else {
+              settimeStop(correctAnswer);
+              setOpenTimeStop(true);
+            }
+            // if (openCorrectAnswer === false || openFalseAnswer === false) {
+            //   setOpenTimeStop(true);
+            // }
+            // console.log(dummyData.find((item) => item.no === parseInt(currentID)))
+            // console.log(timer, "ini timer di else");
           }
-          // Check if incorrect answer is open
-          else if (openFalseAnswer) {
-            settimeStop(correctAnswer);
-          } else {
-            settimeStop(correctAnswer);
-            setOpenTimeStop(true);
-            console.log(timer, "ini timer di else");
-          }
-          // clearInterval(interval);
-          // setTimer(15);
-          // navigate(`/?id=${intID}`);
         } else {
           setOpenTimeStop(false);
           setTimer(timer - 1);
