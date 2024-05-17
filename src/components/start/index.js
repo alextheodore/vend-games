@@ -68,17 +68,10 @@ function StartComponent({ question }) {
             // Check if incorrect answer is open
             else if (openFalseAnswer) {
               settimeStop(correctAnswer);
-              // setOpenFalseAnswer(false); // Close incorrect answer option
-              // settimeStop(correctAnswer);
             } else {
               settimeStop(correctAnswer);
               setOpenTimeStop(true);
             }
-            // if (openCorrectAnswer === false || openFalseAnswer === false) {
-            //   setOpenTimeStop(true);
-            // }
-            // console.log(dummyData.find((item) => item.no === parseInt(currentID)))
-            // console.log(timer, "ini timer di else");
           }
         } else {
           setOpenTimeStop(false);
@@ -230,6 +223,7 @@ function StartComponent({ question }) {
             style={{ width: "75%", paddingBottom: "105px", paddingTop: "50px" }}
           />
         </Modal>
+        <p>{currentID}</p>
 
         <Modal
           centered
@@ -252,7 +246,7 @@ function StartComponent({ question }) {
           <text
             className="correct-answer-BRI"
             style={{
-              backgroundColor: "greenyellow",
+              backgroundColor: "#00FF00",
               fontSize: "60px",
               borderRadius: "15px",
               padding: "15px",
@@ -342,6 +336,7 @@ function StartComponent({ question }) {
             data={question[parseInt(currentID) - 1]}
             onClickAnswer={answer}
           />
+          <h1 style={{ fontSize: "45px", color: "white", paddingBottom: '3px'}}>{currentID}/5</h1>
         </div>
       </MainLayout>
     </div>

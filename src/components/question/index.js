@@ -1,7 +1,7 @@
 import React from "react";
 import "./index.css";
 
-function Question({ data, onClickAnswer}) {
+function Question({ data, onClickAnswer }) {
   return (
     <>
       <div className="question-card">
@@ -9,18 +9,20 @@ function Question({ data, onClickAnswer}) {
         <img className="card-img" src={data?.picture} />
       </div>
 
-      {data?.answer.map((data, index) => (
-        <button
-          className="answer"
-          onClick={(e) => {
-            e.preventDefault();
-            onClickAnswer(data);
-          }}
-          key={index}
-        >
-          {data?.answer}
-        </button>
-      ))}
+      <div style={{ height: "28vh"}}>
+        {data?.answer.map((data, index) => (
+          <button
+            className="answer"
+            onClick={(e) => {
+              e.preventDefault();
+              onClickAnswer(data);
+            }}
+            key={index}
+          >
+            {data?.answer}
+          </button>
+        ))}
+      </div>
     </>
   );
 }
