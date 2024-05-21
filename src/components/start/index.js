@@ -198,7 +198,13 @@ function StartComponent({ question }) {
               Nomor {currentID}
             </p>
           </div>
-          <div className="right-timer">Waktu : {timer}</div>
+          <span className="right-timer">Waktu: </span>
+          <span
+            className="right-timer"
+            style={{ color: parseInt(timer) <= 5 ? "red" : "white", paddingLeft: 10}}
+          >
+            {timer}
+          </span>
         </div>
         <hr className="line"></hr>
         <Modal
@@ -336,7 +342,11 @@ function StartComponent({ question }) {
             data={question[parseInt(currentID) - 1]}
             onClickAnswer={answer}
           />
-          <h1 style={{ fontSize: "45px", color: "white", paddingBottom: '3px'}}>{currentID}/5</h1>
+          <h1
+            style={{ fontSize: "45px", color: "white", paddingBottom: "3px" }}
+          >
+            {currentID}/5
+          </h1>
         </div>
       </MainLayout>
     </div>

@@ -152,7 +152,7 @@ function FormComponent() {
               </Button>
             </Form.Item>
           </Form>
-          {!hiddenKeyboard && <Keyboard onChange={onChanged}/>}
+          {!hiddenKeyboard && <Keyboard onChange={onChanged} />}
         </MainLayout>
       </div>
     </>
