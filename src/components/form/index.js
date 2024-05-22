@@ -127,7 +127,7 @@ function FormComponent() {
                 },
                 {
                   validator: (_, value) => {
-                    if (value && (value.length > 3)) {
+                    if (value && (value.length < 3)) {
                       return Promise.reject(<text style={{ fontSize: '30px', fontWeight: 'bold', color: 'red' }}>"Nomor tidak boleh kurang dari 3 nomor."</text>);
                     }
                     return Promise.resolve();
