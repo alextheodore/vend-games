@@ -198,12 +198,12 @@ function StartComponent({ question }) {
               Nomor {currentID}
             </p>
           </div>
-          <span className="right-timer">Waktu: </span>
+          <span className="right-timer">Waktu :  </span>
           <span
             className="right-timer"
             style={{ color: parseInt(timer) <= 5 ? "red" : "white", paddingLeft: 10}}
           >
-            {timer}
+             {timer}
           </span>
         </div>
         <hr className="line"></hr>

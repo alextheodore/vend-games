@@ -98,6 +98,14 @@ function FormComponent() {
                   required: true,
                   message: "Please input your name!",
                 },
+                {
+                validator: (_, value) => {
+                  if (value && (value.length > 25)) {
+                    return Promise.reject(<text style={{ fontSize: '30px', fontWeight: 'bold', color: 'red' }}>"Nama tidak boleh lebih dari 25 karakter."</text>);
+                  }
+                  return Promise.resolve();
+                },
+                },
               ]}
             >
               <Input
@@ -117,6 +125,14 @@ function FormComponent() {
                   required: true,
                   message: "Please input your password!",
                 },
+                {
+                  validator: (_, value) => {
+                    if (value && (value.length > 3)) {
+                      return Promise.reject(<text style={{ fontSize: '30px', fontWeight: 'bold', color: 'red' }}>"Nomor tidak boleh kurang dari 3 nomor."</text>);
+                    }
+                    return Promise.resolve();
+                  },
+                  },
               ]}
             >
               <Input.Password
