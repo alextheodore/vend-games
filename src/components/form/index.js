@@ -152,9 +152,6 @@ function FormComponent() {
                 span: 16,
               }}
             >
-              <Checkbox style={{ fontSize: "40px", width: "90%" }}>
-                Remember me
-              </Checkbox>
             </Form.Item>
 
             <Form.Item
@@ -163,7 +160,7 @@ function FormComponent() {
                 span: 16,
               }}
             >
-              <Button type="primary" htmlType="submit">
+              <Button type="primary" htmlType="submit" className="btn-form">
                 Ambil Hadiah
               </Button>
             </Form.Item>

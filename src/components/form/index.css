@@ -39,6 +39,12 @@ label.ant-form-item-required {
 
 .ant-btn {
     margin-top: 80px !important;
+    color: #005ce6 !important;
+    font-weight: 400;
+    background-color: white !important;
+    margin-right: 100px !important;
+    width: 550px !important;
+    margin-left: -90px !important;
 }
 
 .react-simple-keyboard {
@@ -51,3 +57,6 @@ label.ant-form-item-required {
     height: 20vh !important;
 }
 
+/* .btn-form {
+    color: blue;
+} */
