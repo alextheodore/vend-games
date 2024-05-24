@@ -135,8 +135,8 @@ function FormComponent() {
                   },
               ]}
             >
-              <Input.Password
-                className="form-input-password"
+              <Input
+                className="form-input-nomor"
                 onFocus={() => {
                   setHiddenKeyboard(false);
                   setActiveInput("nomor");
