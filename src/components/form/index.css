@@ -38,7 +38,7 @@ label.ant-form-item-required {
 }
 
 .btn-form {
-    margin-top: 20px !important;
+    margin-top: 100px !important;
     color: blue !important;
     font-weight: 600;
     background-color: white !important;
@@ -60,5 +60,11 @@ label.ant-form-item-required {
 
 .ant-input-outlined:hover {
     font-size: 35px !important;
+}
+
+.ant-form-item .ant-form-item-explain-error {
+    font-size: 35px !important;
+    color: red !important;
+    font-weight: 500;
 }
 
