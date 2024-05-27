@@ -132,7 +132,6 @@ function StartComponent({ question }) {
           left: "42%",
           transform: "translateX(-50%)",
           width: "900px !important",
-
         }}
       >
         Selanjutnya
@@ -149,7 +148,7 @@ function StartComponent({ question }) {
         style={{
           position: "absolute",
           bottom: "-258px",
-          left: "50%",
+          left: "42%",
           transform: "translateX(-50%)",
         }}
       >

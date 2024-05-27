@@ -26,7 +26,6 @@ function FormComponent() {
       [activeInput]: input,
     });
   };
-
   // form.setFieldValue("nama", input);
   // form.setFieldValue("nomor", input);
   const [hiddenKeyboard, setHiddenKeyboard] = useState(true);
