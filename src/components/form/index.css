@@ -58,7 +58,7 @@ label.ant-form-item-required {
     height: 20vh !important;
 }
 
-.ant-input-outlined:hover {
+.ant-input-outlined {
     font-size: 35px !important;
 }
 
