@@ -37,14 +37,15 @@ label.ant-form-item-required {
     width: 90%;
 }
 
-.ant-btn {
-    margin-top: 80px !important;
-    color: #005ce6 !important;
-    font-weight: 400;
+.btn-form {
+    margin-top: 20px !important;
+    color: blue !important;
+    font-weight: 600;
     background-color: white !important;
+    text-align: center;
     margin-right: 100px !important;
-    width: 550px !important;
-    margin-left: -90px !important;
+    width: 680px !important;
+    margin-left: -180px !important;
 }
 
 .react-simple-keyboard {

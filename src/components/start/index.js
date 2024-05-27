@@ -82,6 +82,7 @@ function StartComponent({ question }) {
       return () => clearInterval(interval);
     }
   }, [timer]);
+
   // console.log(timer);
 
   // useEffect(() => {
@@ -94,8 +95,8 @@ function StartComponent({ question }) {
   // }, []);
 
   const modalFooter = (
-    <div style={{ textAlign: "center" }}>
-      <Button onClick={handleOk} type={"primary"}>
+    <div style={{ textAlign: "center", paddingRight: "90px"}}>
+      <Button onClick={handleOk} type={"default"} style={{ marginLeft: "70px" }}>
         Mulai
       </Button>
     </div>
@@ -109,8 +110,8 @@ function StartComponent({ question }) {
         type={"primary"}
         style={{
           position: "absolute",
-          bottom: "-384px",
-          left: "50%",
+          bottom: "-390px",
+          left: "42%",
           transform: "translateX(-50%)",
         }}
       >
@@ -128,8 +129,10 @@ function StartComponent({ question }) {
         style={{
           position: "absolute",
           bottom: "-258px",
-          left: "50%",
+          left: "42%",
           transform: "translateX(-50%)",
+          width: "900px !important",
+
         }}
       >
         Selanjutnya

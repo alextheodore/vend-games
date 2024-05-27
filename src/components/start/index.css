@@ -35,9 +35,11 @@
   font-size: 50px !important;
   font-weight: 700;
   width: 35vw !important;
-  height: 6vh !important;
+  height: 6.2vh !important;
   border-radius: 20px;
   background-color: #FF7F50;
+  margin-left: 65px;
+  color: white;
   -webkit-border-radius: 20px;
   -moz-border-radius: 20px;
   -ms-border-radius: 20px;
@@ -48,9 +50,11 @@
   font-size: 50px !important;
   font-weight: 700;
   width: 35vw !important;
-  height: 6vh !important;
+  height: 6.2vh !important;
   border-radius: 20px;
   background-color: #FF7F50 !important;
+  margin-left: 65px;
+  color: white;
   -webkit-border-radius: 20px;
   -moz-border-radius: 20px;
   -ms-border-radius: 20px;

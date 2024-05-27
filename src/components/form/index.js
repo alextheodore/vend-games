@@ -123,12 +123,12 @@ function FormComponent() {
               rules={[
                 {
                   required: true,
-                  message: "Please input your password!",
+                  message: "Please input your phone number!",
                 },
                 {
                   validator: (_, value) => {
                     if (value && (value.length < 4)) {
-                      return Promise.reject(<text style={{ fontSize: '30px', fontWeight: 'bold', color: 'red' }}>"Nomor tidak boleh kurang dari 3 nomor."</text>);
+                      return Promise.reject(<text style={{ fontSize: '30px', fontWeight: 'bold', color: 'red' }}>"Nomer tidak boleh kurang dari 3 nomor."</text>);
                     }
                     return Promise.resolve();
                   },
