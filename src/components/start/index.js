@@ -68,10 +68,11 @@ function StartComponent({ question }) {
         const parser = new DOMParser();
         const dataxml = parser.parseFromString(`${splitdata[1]}`, 'text/xml');
         console.log(dataxml)
-        const remainingQty = dataxml.getElementsByTagName('remainingQty')[0].childNodes[0].nodeValue
+        // const remainingQty = dataxml.getElementsByTagName('remainingQty')[0].childNodes[0].nodeValue // Jika memakai API stoknya masih 5
+        const remainingQty = 0; // Set remainingQty sama dengan 0
         console.log(remainingQty);
         if(remainingQty===0){
-          <img src={OutofStock} style={{ width: "32%", alignItems: "center" }} />
+          setOpenOutOfStock(true) // Test jika stoknya 0, akan menampilkan modal stok habis
         }
       })
       
@@ -187,7 +188,7 @@ function StartComponent({ question }) {
 
   const modalFooterOutofStock = (
     <div style={{ position: "relative" }}>
-      <h2>Terima kasih sudah mencoba BRI Quiz</h2>
+      <h1 style={{ fontSize: "35px", paddingRight: '100px', fontWeight: 'bolder' }}>Terima kasih sudah mencoba BRI Quiz</h1>
     </div>
   );
 
@@ -368,7 +369,7 @@ function StartComponent({ question }) {
 
         <Modal
           centered
-          title="Oopss Stock Habis"
+          title="- BRI QUIZ -"
           open={openOutOfStock}
           onOk={(e) => handleOk(e)}
           okButtonProps={{
@@ -383,17 +384,15 @@ function StartComponent({ question }) {
           footer={modalFooterOutofStock}
           width={900}
         >
-          {/* <img src={TimeOut} style={{ width: "95%" }} /> */}
+          <img src={OutofStock} style={{ width: "95%" }} />
           {/* <p style={{ fontSize: "40px", fontWeight: "bold" }}>
             yang benar adalah...
           </p> */}
           <text
             className="stok-BRI"
             style={{
-              backgroundColor: "#00FF00",
-              fontSize: "60px",
-              borderRadius: "15px",
-              padding: "15px",
+              fontSize: "200px",
+              padding: "10px",
             }}
           >
             {outofStock}
