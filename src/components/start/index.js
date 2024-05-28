@@ -11,9 +11,11 @@ import useQuery from "../Hooks";
 import Check from "../../assets/check.gif";
 import Error from "../../assets/err.gif";
 import TimeOut from "../../assets/timeout.gif";
+import OutofStock from "../../assets/outofstock.png";
 import Question from "../question";
 import { useEffect } from "react";
 import { dummyData } from "../../dummy";
+import axios from "axios";
 
 function StartComponent({ question }) {
   const navigate = useNavigate();
@@ -22,9 +24,11 @@ function StartComponent({ question }) {
   const [openCorrectAnswer, setOpenCorrectAnswer] = useState(false);
   const [openFalseAnswer, setOpenFalseAnswer] = useState(false);
   const [openTimeStop, setOpenTimeStop] = useState(false);
+  const [openOutOfStock, setOpenOutOfStock] = useState(false);
   const [correctAnswer, setcorrectAnswer] = useState(null);
   const [falseAnswer, setfalseAnswer] = useState(null);
   const [timeStop, settimeStop] = useState(null);
+  const [outofStock, setoutofStock] = useState(null);
   let query = useQuery();
   let currentID = query.get("id") ?? 0;
   console.log(question[parseInt(currentID) - 1]);
@@ -50,6 +54,30 @@ function StartComponent({ question }) {
     console.log(e);
     setOpen(false);
   };
+
+  useEffect(()=>{
+    axios({
+      method: "get",
+      url: "https://vmdummy.onrender.com/vendmart/api/checkSlotAvailability",
+    })
+      .then(({ data }) => {
+        navigate("/");
+        console.log(data);
+        const splitdata = data.split('?>');
+        // console.log(splitdata[1]);
+        const parser = new DOMParser();
+        const dataxml = parser.parseFromString(`${splitdata[1]}`, 'text/xml');
+        console.log(dataxml)
+        const remainingQty = dataxml.getElementsByTagName('remainingQty')[0].childNodes[0].nodeValue
+        console.log(remainingQty);
+        if(remainingQty===0){
+          <img src={OutofStock} style={{ width: "32%", alignItems: "center" }} />
+        }
+      })
+      
+
+      .catch((err) => console.log(err));
+  },[])
 
   useEffect(() => {
     if (timer >= 0) {
@@ -152,8 +180,14 @@ function StartComponent({ question }) {
           transform: "translateX(-50%)",
         }}
       >
-        Selanjutnya
+        Selanjutnya   
       </Button>
+    </div>
+  );
+
+  const modalFooterOutofStock = (
+    <div style={{ position: "relative" }}>
+      <h2>Terima kasih sudah mencoba BRI Quiz</h2>
     </div>
   );
 
@@ -329,6 +363,40 @@ function StartComponent({ question }) {
             }}
           >
             {timeStop}
+          </text>
+        </Modal>
+
+        <Modal
+          centered
+          title="Oopss Stock Habis"
+          open={openOutOfStock}
+          onOk={(e) => handleOk(e)}
+          okButtonProps={{
+            disabled: true,
+          }}
+          okText="Terima kasih sudah mencoba BRI Quiz"
+          cancelButtonProps={{
+            disabled: true,
+            style: { visibility: "hidden" },
+          }}
+          closable={false}
+          footer={modalFooterOutofStock}
+          width={900}
+        >
+          {/* <img src={TimeOut} style={{ width: "95%" }} /> */}
+          {/* <p style={{ fontSize: "40px", fontWeight: "bold" }}>
+            yang benar adalah...
+          </p> */}
+          <text
+            className="stok-BRI"
+            style={{
+              backgroundColor: "#00FF00",
+              fontSize: "60px",
+              borderRadius: "15px",
+              padding: "15px",
+            }}
+          >
+            {outofStock}
           </text>
         </Modal>
 
