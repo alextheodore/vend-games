@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
-import { Button, Checkbox, Form, Input } from "antd";
+import { useNavigate } from "react-router-dom";
+import { Button, Checkbox, Form, Input, Modal } from "antd";
 import MainLayout from "../layout/main";
 import Start from "../../assets/start.gif";
 import BRI from "../../assets/BRI_white.png";
@@ -8,6 +9,7 @@ import Quiz from "../../assets/quiz.png";
 import useQuery from "../Hooks";
 import Check from "../../assets/check.gif";
 import Error from "../../assets/err.gif";
+import Gift from "../../assets/gift.gif";
 import Question from "../question";
 import { useEffect } from "react";
 import { dummyData } from "../../dummy";
@@ -16,11 +18,12 @@ import Keyboard from "react-simple-keyboard";
 import "react-simple-keyboard/build/css/index.css";
 import axios from "axios";
 
-
-function FormComponent() {
+function FormComponent({ question }) {
   const [form] = Form.useForm();
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [openTakeGift, setOpenTakeGift] = useState(false);
+  const [takeGift, settakeGift] = useState(null);
   const [activeInput, setActiveInput] = useState("");
   const onChanged = (input) => {
     console.log(input);
@@ -39,6 +42,49 @@ function FormComponent() {
     console.log("Failed:", errorInfo);
   };
 
+  // Dari page start
+  const navigate = useNavigate();
+  const [timer, setTimer] = useState(15);
+  const [open, setOpen] = useState(true);
+  const [openCorrectAnswer, setOpenCorrectAnswer] = useState(false);
+  const [openFalseAnswer, setOpenFalseAnswer] = useState(false);
+  const [openTimeStop, setOpenTimeStop] = useState(false);
+  const [openOutOfStock, setOpenOutOfStock] = useState(false);
+  // const [openTakeGift, setOpenTakeGift] = useState(false);
+  const [correctAnswer, setcorrectAnswer] = useState(null);
+  const [falseAnswer, setfalseAnswer] = useState(null);
+  const [timeStop, settimeStop] = useState(null);
+  const [outofStock, setoutofStock] = useState(null);
+  // const [takeGift, settakeGift] = useEffect(null);
+
+
+  let query = useQuery();
+  let currentID = query.get("id") ?? 0;
+  // console.log(question[parseInt(currentID) - 1]);
+  // console.log(currentID);
+  const showModal = () => {
+    setOpen(true);
+  };
+  const handleOk = (e) => {
+    const intID = parseInt(currentID) + 1;
+    if (parseInt(currentID) === dummyData.length) {
+      setOpenTimeStop(false);
+      navigate("form");
+      return;
+    }
+    console.log(e);
+    setOpen(false);
+    setOpenCorrectAnswer(false);
+    setOpenFalseAnswer(false);
+    setTimer(15);
+    navigate(`/?id=${intID}`);
+  };
+  const handleCancel = (e) => {
+    console.log(e);
+    setOpen(false);
+  };
+  
+
   useEffect(() => {
     function clickHanlder(e) {
       if (
@@ -52,6 +98,59 @@ function FormComponent() {
     window.addEventListener("click", clickHanlder);
     return window.removeEventListener("click", clickHanlder, true);
   }, []);
+
+  // useEffect(()=>{
+  //   axios({
+  //     method: "get",
+  //     url: "https://vmdummy.onrender.com/vendmart/api/dispenseRandom?sensor=NO",
+  //   })
+  //     .then(({ data }) => {
+  //       // navigate("/");
+  //       console.log(data);
+  //       // const splitdata = data.split('?>');
+  //       // console.log(splitdata[1]);
+  //       const parser = new DOMParser();
+  //       const dataxml = parser.parseFromString(`${data}`, 'text/xml');
+  //       console.log(dataxml)
+  //       // console.log(status);
+  //       // if(status===101){
+  //       //   setOpenOutOfStock(true)
+  //       // }
+  //     })
+  //     .catch((err) => console.log(err));
+  // },[])
+
+  function Submit() {
+    // console.log("jatoh");
+    axios({
+      method: "get",
+      url: "https://vmdummy.onrender.com/vendmart/api/dispenseRandom?sensor=NO",
+    })
+      .then(({ data }) => {
+        // navigate("/");
+        console.log(data);
+        // const splitdata = data.split('?>');
+        // console.log(splitdata[1]);
+        const parser = new DOMParser();
+        const dataxml = parser.parseFromString(`${data}`, "text/xml");
+        console.log(dataxml);
+        const status = dataxml.getElementsByTagName("status")[0].textContent;
+        console.log(status);
+        if (status === "101") {
+          setOpenTakeGift(true);
+        }
+      })
+      .catch((err) => console.log(err));
+  }
+
+  const modalFooterTakeGift = (
+    <div style={{ position: "relative" }}>
+    <h1 style={{ fontSize: "35px", paddingRight: '280px', fontWeight: 'bolder' }}></h1>
+  </div>
+  );
+
+  console.log(openTakeGift);
+
   return (
     <>
       <div>
@@ -100,12 +199,22 @@ function FormComponent() {
                   message: "Please input your name!",
                 },
                 {
-                validator: (_, value) => {
-                  if (value && (value.length > 25)) {
-                    return Promise.reject(<text style={{ fontSize: '30px', fontWeight: 'bold', color: 'red' }}>"Nama tidak boleh lebih dari 25 karakter."</text>);
-                  }
-                  return Promise.resolve();
-                },
+                  validator: (_, value) => {
+                    if (value && value.length > 25) {
+                      return Promise.reject(
+                        <text
+                          style={{
+                            fontSize: "30px",
+                            fontWeight: "bold",
+                            color: "red",
+                          }}
+                        >
+                          "Nama tidak boleh lebih dari 25 karakter."
+                        </text>
+                      );
+                    }
+                    return Promise.resolve();
+                  },
                 },
               ]}
             >
@@ -128,12 +237,22 @@ function FormComponent() {
                 },
                 {
                   validator: (_, value) => {
-                    if (value && (value.length < 4)) {
-                      return Promise.reject(<text style={{ fontSize: '30px', fontWeight: 'bold', color: 'red' }}>"Nomer tidak boleh kurang dari 3 nomor."</text>);
+                    if (value && value.length < 4) {
+                      return Promise.reject(
+                        <text
+                          style={{
+                            fontSize: "30px",
+                            fontWeight: "bold",
+                            color: "red",
+                          }}
+                        >
+                          "Nomer tidak boleh kurang dari 3 nomor."
+                        </text>
+                      );
                     }
                     return Promise.resolve();
                   },
-                  },
+                },
               ]}
             >
               <Input
@@ -145,6 +264,35 @@ function FormComponent() {
               />
             </Form.Item>
 
+            <Modal
+              centered
+              title="- BRI QUIZ -"
+              open={openTakeGift}
+              onOk={(e) => handleOk(e)}
+              okButtonProps={{
+                disabled: true,
+              }}
+              okText=""
+              cancelButtonProps={{
+                disabled: true,
+                style: { visibility: "hidden" },
+              }}
+              closable={false}
+              footer={modalFooterTakeGift}
+              width={900}
+            >
+              <img src={Gift} style={{ width: "95%" }} />
+              <text
+                className="stok-BRI"
+                style={{
+                  fontSize: "200px",
+                  padding: "10px",
+                }}
+              >
+                {takeGift}
+              </text>
+            </Modal>
+
             <Form.Item
               name="remember"
               valuePropName="checked"
@@ -152,8 +300,7 @@ function FormComponent() {
                 offset: 8,
                 span: 16,
               }}
-            >
-            </Form.Item>
+            ></Form.Item>
 
             <Form.Item
               wrapperCol={{
@@ -161,7 +308,12 @@ function FormComponent() {
                 span: 16,
               }}
             >
-              <Button type="primary" htmlType="submit" className="btn-form">
+              <Button
+                onClick={() => Submit()}
+                type="primary"
+                htmlType="submit"
+                className="btn-form"
+              >
                 Ambil Hadiah
               </Button>
             </Form.Item>

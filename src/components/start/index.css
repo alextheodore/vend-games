@@ -19,10 +19,10 @@
 }
 
 .ant-modal-content {
-  width: 95% !important;
-  height: 68vh !important;
+  width: 92% !important;
+  height: 65vh !important;
   border-radius: 30px !important;
-  margin-top: 20px !important;
+  margin-top: 78px !important;
   padding-top: 120px !important;
   padding-bottom: 1px !important;
   -webkit-border-radius: 30px !important;
@@ -37,7 +37,7 @@
   width: 35vw !important;
   height: 6.2vh !important;
   border-radius: 20px;
-  background-color: #FF7F50;
+  background-color: blue;
   margin-left: 65px;
   color: white;
   -webkit-border-radius: 20px;
@@ -71,10 +71,15 @@
   padding-top: 40px;
 }
 
+.left-nomor {
+  margin-top: 15px;
+  margin-left: 12px;
+}
+
 .right-timer{
-  font-size: 50px;
+  font-size: 45px;
   color: white;
-  padding-top: 50px;
+  padding-top: 57px;
   padding-left: 435px;
 } 
 
@@ -82,10 +87,10 @@
   background-color: white;
   height: 3px;
   width: 850px;
-  margin-top: -50px;
+  margin-top: -45px;
   margin-bottom: 90px;
 }
 
 .btn-stop {
-  width: 80vw !important;
+  width: 77vw !important;
 }

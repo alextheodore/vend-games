@@ -11,6 +11,7 @@ import useQuery from "../Hooks";
 import Check from "../../assets/check.gif";
 import Error from "../../assets/err.gif";
 import TimeOut from "../../assets/timeout.gif";
+import Gift from "../../assets/gift.gif";
 import OutofStock from "../../assets/outofstock.png";
 import Question from "../question";
 import { useEffect } from "react";
@@ -25,10 +26,14 @@ function StartComponent({ question }) {
   const [openFalseAnswer, setOpenFalseAnswer] = useState(false);
   const [openTimeStop, setOpenTimeStop] = useState(false);
   const [openOutOfStock, setOpenOutOfStock] = useState(false);
+  // const [openTakeGift, setOpenTakeGift] = useState(false);
   const [correctAnswer, setcorrectAnswer] = useState(null);
   const [falseAnswer, setfalseAnswer] = useState(null);
   const [timeStop, settimeStop] = useState(null);
   const [outofStock, setoutofStock] = useState(null);
+  // const [takeGift, settakeGift] = useEffect(null);
+
+
   let query = useQuery();
   let currentID = query.get("id") ?? 0;
   console.log(question[parseInt(currentID) - 1]);
@@ -55,6 +60,10 @@ function StartComponent({ question }) {
     setOpen(false);
   };
 
+  //Axios untuk halaman start dengan kondisi dimana  
+// jika remainingQty tidak sama dengan 0 aplikasi berjalan 
+// saat remainingQty 0 halaman aplikasi menampilkan "stok habis"
+
   useEffect(()=>{
     axios({
       method: "get",
@@ -68,10 +77,10 @@ function StartComponent({ question }) {
         const parser = new DOMParser();
         const dataxml = parser.parseFromString(`${splitdata[1]}`, 'text/xml');
         console.log(dataxml)
-        // const remainingQty = dataxml.getElementsByTagName('remainingQty')[0].childNodes[0].nodeValue // Jika memakai API stoknya masih 5
-        const remainingQty = 0; // Set remainingQty sama dengan 0
+        const remainingQty = dataxml.getElementsByTagName('remainingQty')[0].childNodes[0].nodeValue // Jika memakai API stoknya masih 5
+        // const remainingQty = 0; // Set remainingQty sama dengan 0
         console.log(remainingQty);
-        if(remainingQty===0){
+        if(remainingQty === '0'){ 
           setOpenOutOfStock(true) // Test jika stoknya 0, akan menampilkan modal stok habis
         }
       })
@@ -79,6 +88,8 @@ function StartComponent({ question }) {
 
       .catch((err) => console.log(err));
   },[])
+
+  //Axios untuk ambil hadiah
 
   useEffect(() => {
     if (timer >= 0) {
@@ -112,16 +123,6 @@ function StartComponent({ question }) {
     }
   }, [timer]);
 
-  // console.log(timer);
-
-  // useEffect(() => {
-  //   // setTimer(15);
-  //   console.log(timer);
-  //   if (timer === 0) {
-  //     // setOpenTimeStop(false);
-  //     setTimer(15);
-  //   }
-  // }, []);
 
   const modalFooter = (
     <div style={{ textAlign: "center", paddingRight: "90px"}}>
@@ -139,9 +140,10 @@ function StartComponent({ question }) {
         type={"primary"}
         style={{
           position: "absolute",
-          bottom: "-390px",
-          left: "42%",
+          bottom: "-345px",
+          left: "41.7%",
           transform: "translateX(-50%)",
+          backgroundColor: '#FF7F50'
         }}
       >
         Selanjutnya
@@ -157,10 +159,11 @@ function StartComponent({ question }) {
         type={"primary"}
         style={{
           position: "absolute",
-          bottom: "-258px",
-          left: "42%",
+          bottom: "-205px",
+          left: "41.6%",
           transform: "translateX(-50%)",
           width: "900px !important",
+          backgroundColor: '#FF7F50'
         }}
       >
         Selanjutnya
@@ -176,8 +179,8 @@ function StartComponent({ question }) {
         type={"primary"}
         style={{
           position: "absolute",
-          bottom: "-258px",
-          left: "42%",
+          bottom: "-205px",
+          left: "41.5%",
           transform: "translateX(-50%)",
         }}
       >
@@ -190,6 +193,12 @@ function StartComponent({ question }) {
     <div style={{ position: "relative" }}>
       <h1 style={{ fontSize: "35px", paddingRight: '100px', fontWeight: 'bolder' }}>Terima kasih sudah mencoba BRI Quiz</h1>
     </div>
+  );
+
+  const modalFooterTakeGift = (
+    <div style={{ position: "relative" }}>
+    <h1 style={{ fontSize: "35px", paddingRight: '100px', fontWeight: 'bolder' }}>Ambil Hadiah</h1>
+  </div>
   );
 
   const answer = (data) => {
@@ -230,7 +239,7 @@ function StartComponent({ question }) {
         <div className="header">
           <div className="left-nomor">
             <p
-              style={{ fontSize: "50px", color: "white", paddingLeft: "110px" }}
+              style={{ fontSize: "45px", color: "white", paddingLeft: "110px" }}
             >
               Nomor {currentID}
             </p>
@@ -238,12 +247,12 @@ function StartComponent({ question }) {
           <span className="right-timer">Waktu :  </span>
           <span
             className="right-timer"
-            style={{ color: parseInt(timer) <= 5 ? "red" : "white", paddingLeft: 10}}
+            style={{ color: parseInt(timer) <= 5 ? "red" : "white", paddingLeft: 12}}
           >
              {timer}
           </span>
         </div>
-        <hr className="line"></hr>
+        <hr className="line" style={{ marginLeft: "115px", marginTop: "-20px"}}></hr>
         <Modal
           centered
           title="- BRI QUIZ -"
@@ -398,6 +407,35 @@ function StartComponent({ question }) {
             {outofStock}
           </text>
         </Modal>
+
+        {/* <Modal
+          centered
+          // title="- BRI QUIZ -"
+          open={openTakeGift}
+          onOk={(e) => handleOk(e)}
+          okButtonProps={{
+            disabled: true,
+          }}
+          okText="Terima kasih sudah mencoba BRI Quiz"
+          cancelButtonProps={{
+            disabled: true,
+            style: { visibility: "hidden" },
+          }}
+          closable={false}
+          footer={modalFooterTakeGift}
+          width={900}
+        >
+          <img src={Gift} style={{ width: "95%" }} />
+          <text
+            className="stok-BRI"
+            style={{
+              fontSize: "200px",
+              padding: "10px",
+            }}
+          >
+            {takeGift}
+          </text>
+        </Modal> */}
 
         <div
           style={{
