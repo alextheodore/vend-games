@@ -325,10 +325,9 @@ function FormComponent({ question }) {
                 //Button jika belum isi form
                 <Button
                   htmlType="submit"
-                  className="btn-form"
-                  style={{ backgroundColor: "gray" }}
+                  className="btn-notfilled"
                 >
-                  Isi form
+                  Ambil Hadiah
                 </Button>
               )}
             </Form.Item>

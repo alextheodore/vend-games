@@ -69,3 +69,15 @@ label.ant-form-item-required {
     font-weight: 500;
 }
 
+.btn-notfilled {
+    background-color: #d1d1e0 !important;
+    margin-right: 50px !important;
+    margin-top: 100px !important;
+    color: white !important;
+    font-weight: 600;
+    text-align: center;
+    margin-right: 100px !important;
+    width: 680px !important;
+    margin-left: -180px !important;
+}
+
