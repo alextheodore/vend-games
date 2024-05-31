@@ -25,16 +25,29 @@ function FormComponent({ question }) {
   const [openTakeGift, setOpenTakeGift] = useState(false);
   const [takeGift, settakeGift] = useState(null);
   const [activeInput, setActiveInput] = useState("");
-  const onChanged = (input) => {
-    console.log(input);
+  const [input, setInput] = useState({
+    name: "",
+    phone: "",
+  });
+
+  const inputName = Form.useWatch("nama", form)
+  const inputPhone = Form.useWatch("nomor", form)
+
+  const onChanged = (target) => {
+    console.log(target, "====> nama", inputName);
+    // setInput({
+    //   name: target,
+    //   phone: target,
+    // });
+    let value = ""
+    if (activeInput === "nama") value = (inputName || "") + target;
+    else value = (inputPhone || "") + target
     form.setFieldsValue({
-      [activeInput]: input,
+      [activeInput]: value,
     });
   };
-  // form.setFieldValue("nama", input);
-  // form.setFieldValue("nomor", input);
+
   const [hiddenKeyboard, setHiddenKeyboard] = useState(true);
-  // form.setFieldsValue //nama:value masuk ke onChanged
   const onFinish = (values) => {
     console.log("Success:", values);
   };
@@ -50,13 +63,10 @@ function FormComponent({ question }) {
   const [openFalseAnswer, setOpenFalseAnswer] = useState(false);
   const [openTimeStop, setOpenTimeStop] = useState(false);
   const [openOutOfStock, setOpenOutOfStock] = useState(false);
-  // const [openTakeGift, setOpenTakeGift] = useState(false);
   const [correctAnswer, setcorrectAnswer] = useState(null);
   const [falseAnswer, setfalseAnswer] = useState(null);
   const [timeStop, settimeStop] = useState(null);
   const [outofStock, setoutofStock] = useState(null);
-  // const [takeGift, settakeGift] = useEffect(null);
-
 
   let query = useQuery();
   let currentID = query.get("id") ?? 0;
@@ -83,7 +93,15 @@ function FormComponent({ question }) {
     console.log(e);
     setOpen(false);
   };
-  
+
+  //function dengan kondisi sebelum mengambil hadiah harus mengisi form nama dan nomor terlebih dahulu
+  const handleFinish = () => {
+    if (inputName && inputPhone) {
+      setOpenTakeGift(false);
+    } else {
+      console.error("Tolong isi formnya terlebih dahulu");
+    }
+  };
 
   useEffect(() => {
     function clickHanlder(e) {
@@ -99,27 +117,6 @@ function FormComponent({ question }) {
     return window.removeEventListener("click", clickHanlder, true);
   }, []);
 
-  // useEffect(()=>{
-  //   axios({
-  //     method: "get",
-  //     url: "https://vmdummy.onrender.com/vendmart/api/dispenseRandom?sensor=NO",
-  //   })
-  //     .then(({ data }) => {
-  //       // navigate("/");
-  //       console.log(data);
-  //       // const splitdata = data.split('?>');
-  //       // console.log(splitdata[1]);
-  //       const parser = new DOMParser();
-  //       const dataxml = parser.parseFromString(`${data}`, 'text/xml');
-  //       console.log(dataxml)
-  //       // console.log(status);
-  //       // if(status===101){
-  //       //   setOpenOutOfStock(true)
-  //       // }
-  //     })
-  //     .catch((err) => console.log(err));
-  // },[])
-
   function Submit() {
     // console.log("jatoh");
     axios({
@@ -127,10 +124,7 @@ function FormComponent({ question }) {
       url: "https://vmdummy.onrender.com/vendmart/api/dispenseRandom?sensor=NO",
     })
       .then(({ data }) => {
-        // navigate("/");
         console.log(data);
-        // const splitdata = data.split('?>');
-        // console.log(splitdata[1]);
         const parser = new DOMParser();
         const dataxml = parser.parseFromString(`${data}`, "text/xml");
         console.log(dataxml);
@@ -145,8 +139,17 @@ function FormComponent({ question }) {
 
   const modalFooterTakeGift = (
     <div style={{ position: "relative" }}>
-    <h1 style={{ fontSize: "35px", paddingRight: '280px', fontWeight: 'bolder' }}></h1>
-  </div>
+      <h1
+        style={{
+          fontSize: "38px",
+          paddingTop: "80px",
+          paddingRight: "60px",
+          fontWeight: "bold",
+        }}
+      >
+        Terima kasih sudah mencoba BRI Quiz
+      </h1>
+    </div>
   );
 
   console.log(openTakeGift);
@@ -185,7 +188,7 @@ function FormComponent({ question }) {
             initialValues={{
               remember: true,
             }}
-            onFinish={onFinish}
+            onFinish={handleFinish}
             onFinishFailed={onFinishFailed}
             autoComplete="off"
           >
@@ -266,9 +269,11 @@ function FormComponent({ question }) {
 
             <Modal
               centered
-              title="- BRI QUIZ -"
+              title="Silahkan Ambil Hadiah"
               open={openTakeGift}
               onOk={(e) => handleOk(e)}
+              onCancel={() => setOpenTakeGift(false)}
+              footer={modalFooterTakeGift}
               okButtonProps={{
                 disabled: true,
               }}
@@ -278,7 +283,6 @@ function FormComponent({ question }) {
                 style: { visibility: "hidden" },
               }}
               closable={false}
-              footer={modalFooterTakeGift}
               width={900}
             >
               <img src={Gift} style={{ width: "95%" }} />
@@ -308,17 +312,31 @@ function FormComponent({ question }) {
                 span: 16,
               }}
             >
-              <Button
-                onClick={() => Submit()}
-                type="primary"
-                htmlType="submit"
-                className="btn-form"
-              >
-                Ambil Hadiah
-              </Button>
+              {inputName && inputPhone ? (
+                <Button
+                  onClick={() => Submit()}
+                  type="primary"
+                  htmlType="submit"
+                  className="btn-form"
+                >
+                  Ambil Hadiah
+                </Button>
+              ) : (
+                //Button jika belum isi form
+                <Button
+                  htmlType="submit"
+                  className="btn-form"
+                  style={{ backgroundColor: "gray" }}
+                >
+                  Isi form
+                </Button>
+              )}
             </Form.Item>
           </Form>
-          {!hiddenKeyboard && <Keyboard onChange={onChanged} />}
+          {!hiddenKeyboard && <Keyboard 
+          // onChange={onChanged}
+          onKeyPress={onChanged}
+          />}
         </MainLayout>
       </div>
     </>

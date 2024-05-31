@@ -14,8 +14,9 @@ label.ant-form-item-required {
     border-radius: 35px;
     padding-top: 120px !important;
     height: 50vh;
+    width: 80vw;
     margin-top: 90px;
-    margin-left: 40px;
+    margin-left: 110px;
     -webkit-border-radius: 35px;
     -moz-border-radius: 35px;
     -ms-border-radius: 35px;
