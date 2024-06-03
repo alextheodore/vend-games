@@ -223,7 +223,7 @@ function FormComponent({ question }) {
             >
               <Input
                 className="form-input-nama"
-                onFocus={() => {
+                autoFocus={() => {
                   setHiddenKeyboard(false);
                   setActiveInput("nama");
                 }}
@@ -260,7 +260,7 @@ function FormComponent({ question }) {
             >
               <Input
                 className="form-input-nomor"
-                onFocus={() => {
+                onFocuss={() => {
                   setHiddenKeyboard(false);
                   setActiveInput("nomor");
                 }}
@@ -343,3 +343,4 @@ function FormComponent({ question }) {
 }
 
 export default FormComponent;
+
