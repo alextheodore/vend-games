@@ -1,9 +1,9 @@
 label.ant-form-item-required {
     width: 90% !important;
     font-size: 45px !important;
-    height: 10vh !important;
+    height: 8vh !important;
     text-align: center !important;
-    margin-top: 10px !important;
+    margin-bottom: 2px;
 }
 
 .ant-form-item .ant-form-item-control {
@@ -12,11 +12,13 @@ label.ant-form-item-required {
 
 .ant-form {
     background-color: #005ce6;
+    border-color: white !important;
     border-radius: 35px;
-    padding-top: 120px !important;
+    border-color: white !important;
+    padding-top: 100px !important;
     height: 50vh;
     width: 80vw;
-    margin-top: 90px;
+    margin-top: 120px;
     margin-left: 110px;
     -webkit-border-radius: 35px;
     -moz-border-radius: 35px;
@@ -26,7 +28,8 @@ label.ant-form-item-required {
 
 .ant-form-item .ant-form-item-label >label {
     color: white !important;
-    font-weight: bolder !important;
+    font-weight: 400 !important;
+    padding-bottom: 60px !important;
 }
 
 .form-input-nama {
@@ -37,17 +40,19 @@ label.ant-form-item-required {
 .form-input-nomor {
     height: 5vh !important;
     width: 90%;
+    margin-top: 20px;
 }
 
 .btn-form {
-    margin-top: 100px !important;
+    margin-top: 450px !important;
     color: blue !important;
-    font-weight: 600;
+    font-weight: 400 !important;
     background-color: white !important;
     text-align: center;
     margin-right: 100px !important;
     width: 680px !important;
     margin-left: -180px !important;
+
 }
 
 .react-simple-keyboard {
@@ -72,25 +77,21 @@ label.ant-form-item-required {
 
 .btn-notfilled {
     background-color: #EEEFF3 !important;
-    margin-right: 50px !important;
-    margin-top: 450px !important;
+    margin-top: 400px !important;
     color: #A7AABA !important;
     font-weight: 600;
     text-align: center;
-    margin-right: 100px !important;
-    width: 680px !important;
-    margin-left: -180px !important;
+    width: 775px !important;
+    margin-left: -250px !important;  
 }
 
 :where(.css-dev-only-do-not-override-mzwlov).ant-row {
    display: flex !important;
    flex-direction: column !important;
-   margin-top: -30px;
 }
 
 .ant-input-outlined {
     font-size: 35px !important;
-    width: 750px !important;
+    width: 765px !important;
     margin-left: -8px !important;
-    margin-bottom: 40px !important;
 }

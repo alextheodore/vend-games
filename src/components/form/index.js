@@ -180,6 +180,7 @@ function FormComponent({ question }) {
             }}
             style={{
               maxWidth: 1000,
+              border: "3px solid white",
             }}
             initialValues={{
               remember: true,
@@ -188,10 +189,11 @@ function FormComponent({ question }) {
             onFinishFailed={onFinishFailed}
             autoComplete="off"
           >
-            <Form.Item
+            <Form.Item 
               className="form-username"
-              label="Nama"
+              label="NAMA"
               name="nama"
+              colon= {false}
               rules={[
                 {
                   required: true,
@@ -227,8 +229,10 @@ function FormComponent({ question }) {
             </Form.Item>
 
             <Form.Item
-              label="Nomor HP"
+              label="NOMOR HP"
               name="nomor"
+              colon={false}
+              style={{ marginTop: "80px" }}
               rules={[
                 {
                   required: true,
