@@ -39,6 +39,7 @@
   border-radius: 20px;
   background-color: blue;
   margin-left: 65px;
+  margin-bottom: -5px !important;
   color: white;
   -webkit-border-radius: 20px;
   -moz-border-radius: 20px;
@@ -93,4 +94,8 @@
 
 .btn-stop {
   width: 77vw !important;
+}
+
+.ant-input-borderless {
+  color: white !important;
 }

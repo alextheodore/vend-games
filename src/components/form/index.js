@@ -35,10 +35,6 @@ function FormComponent({ question }) {
 
   const onChanged = (target) => {
     console.log(target, "====> nama", inputName);
-    // setInput({
-    //   name: target,
-    //   phone: target,
-    // });
     let value = ""
     if (activeInput === "nama") value = (inputName || "") + target;
     else value = (inputPhone || "") + target

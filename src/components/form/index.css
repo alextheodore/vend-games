@@ -3,6 +3,7 @@ label.ant-form-item-required {
     font-size: 45px !important;
     height: 10vh !important;
     text-align: center !important;
+    margin-top: 10px !important;
 }
 
 .ant-form-item .ant-form-item-control {
@@ -72,7 +73,7 @@ label.ant-form-item-required {
 .btn-notfilled {
     background-color: #EEEFF3 !important;
     margin-right: 50px !important;
-    margin-top: 100px !important;
+    margin-top: 450px !important;
     color: #A7AABA !important;
     font-weight: 600;
     text-align: center;
@@ -81,3 +82,15 @@ label.ant-form-item-required {
     margin-left: -180px !important;
 }
 
+:where(.css-dev-only-do-not-override-mzwlov).ant-row {
+   display: flex !important;
+   flex-direction: column !important;
+   margin-top: -30px;
+}
+
+.ant-input-outlined {
+    font-size: 35px !important;
+    width: 750px !important;
+    margin-left: -8px !important;
+    margin-bottom: 40px !important;
+}
