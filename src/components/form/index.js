@@ -30,14 +30,14 @@ function FormComponent({ question }) {
     phone: "",
   });
 
-  const inputName = Form.useWatch("nama", form)
-  const inputPhone = Form.useWatch("nomor", form)
+  const inputName = Form.useWatch("nama", form);
+  const inputPhone = Form.useWatch("nomor", form);
 
   const onChanged = (target) => {
     console.log(target, "====> nama", inputName);
-    let value = ""
+    let value = "";
     if (activeInput === "nama") value = (inputName || "") + target;
-    else value = (inputPhone || "") + target
+    else value = (inputPhone || "") + target;
     form.setFieldsValue({
       [activeInput]: value,
     });
@@ -169,19 +169,37 @@ function FormComponent({ question }) {
               style={{ width: "32%", alignItems: "center", padding: "" }}
             />
           </div>
+          <div className="header-form">
+            <div className="left-nomor">
+              <p
+                style={{
+                  fontSize: "45px",
+                  color: "white",
+                  paddingLeft: "110px",
+                }}
+              >
+                Nomor 5
+              </p>
+            </div>
+            <span className="right-timer">Waktu : </span>
+            <span
+              className="right-timer"
+              style={{
+                color: parseInt(timer) <= 5 ? "red" : "white",
+                paddingLeft: 12,
+              }}
+            >
+              {timer}
+            </span>
+          </div>
+          <hr
+            className="line"
+            style={{ marginLeft: "115px", marginTop: "-20px" }}
+          ></hr>
           <Form
+            layout="vertical"
             form={form}
             name="basic"
-            labelCol={{
-              span: 10,
-            }}
-            wrapperCol={{
-              span: 24,
-            }}
-            style={{
-              maxWidth: 1000,
-              border: "3px solid white",
-            }}
             initialValues={{
               remember: true,
             }}
@@ -189,11 +207,11 @@ function FormComponent({ question }) {
             onFinishFailed={onFinishFailed}
             autoComplete="off"
           >
-            <Form.Item 
+            {/* <Form.Item
               className="form-username"
               label="NAMA"
               name="nama"
-              colon= {false}
+              colon={false}
               rules={[
                 {
                   required: true,
@@ -226,13 +244,13 @@ function FormComponent({ question }) {
                   setActiveInput("nama");
                 }}
               />
-            </Form.Item>
+            </Form.Item> */}
 
-            <Form.Item
+            {/* <Form.Item
               label="NOMOR HP"
               name="nomor"
               colon={false}
-              style={{ marginTop: "80px" }}
+              style={{ marginTop: "120px" }}
               rules={[
                 {
                   required: true,
@@ -265,6 +283,55 @@ function FormComponent({ question }) {
                   setActiveInput("nomor");
                 }}
               />
+            </Form.Item> */}
+
+            {/* // Revisi */}
+
+            <Form.Item
+              style={{ marginBottom: "100px" }}
+              label="NAMA"
+              name="nama"
+              colon={false}
+              rules={[
+                {
+                  required: false,
+                  message: "Please input your name",
+                },
+                () => ({
+                  validator(_, value) {
+                    console.log(value.length, "tes");
+                    if (value.length < 25) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject("Maximum character name 25");
+                  },
+                }),
+              ]}
+            >
+              <Input size="large"></Input>
+            </Form.Item>
+
+            <Form.Item
+              label="NOMOR HANDPHONE"
+              name="nomor"
+              colon={false}
+              rules={[
+                {
+                  required: false,
+                  // message: "Please input your number",
+                },
+                () => ({
+                  validator(_, value) {
+                    console.log(value.length, "tes");
+                    if (value.length > 3) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject("Minimum your number 3");
+                  },
+                }),
+              ]}
+            >
+              <Input size="large"></Input>
             </Form.Item>
 
             <Modal
@@ -307,10 +374,10 @@ function FormComponent({ question }) {
             ></Form.Item>
 
             <Form.Item
-              wrapperCol={{
-                offset: 8,
-                span: 16,
-              }}
+            // wrapperCol={{
+            //   offset: 8,
+            //   span: 16,
+            // }}
             >
               {inputName && inputPhone ? (
                 <Button
@@ -323,19 +390,37 @@ function FormComponent({ question }) {
                 </Button>
               ) : (
                 //Button jika belum isi form
-                <Button
-                  htmlType="submit"
-                  className="btn-notfilled"
-                >
+                <Button htmlType="submit" className="btn-notfilled">
                   Ambil Hadiah
                 </Button>
               )}
+
+              {/* <Button
+                onClick={() => Submit()}
+                type="primary"
+                htmlType="submit"
+                className="btn-form"
+              >
+                Ambil Hadiah
+              </Button> */}
             </Form.Item>
           </Form>
-          {!hiddenKeyboard && <Keyboard 
-          // onChange={onChanged}
-          onKeyPress={onChanged}
-          />}
+          <h1
+            style={{
+              fontSize: "45px",
+              color: "white",
+              paddingTop: "135px",
+              marginLeft: "500px",
+            }}
+          >
+            5/5
+          </h1>
+          {!hiddenKeyboard && (
+            <Keyboard
+              // onChange={onChanged}
+              onKeyPress={onChanged}
+            />
+          )}
         </MainLayout>
       </div>
     </>
@@ -343,4 +428,3 @@ function FormComponent({ question }) {
 }
 
 export default FormComponent;
-

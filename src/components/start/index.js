@@ -340,6 +340,7 @@ function StartComponent({ question }) {
               setHiddenKeyboard(false);
               setActiveInput("nama");
             }}
+            onChange={scan}
             className="input-form"
             style={{ width: "400px", paddingLeft: "60px" }}
           />
