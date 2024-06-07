@@ -34,17 +34,17 @@
 .ant-btn {
   font-size: 50px !important;
   font-weight: 700;
-  width: 70vw !important;
+  width: 35vw !important;
   height: 6.2vh !important;
   border-radius: 20px;
   background-color: blue;
-  margin-left: 5px;
+  margin-left: 65px;
   margin-bottom: -5px !important;
   color: white;
-  /* -webkit-border-radius: 20px;
+  -webkit-border-radius: 20px;
   -moz-border-radius: 20px;
   -ms-border-radius: 20px;
-  -o-border-radius: 20px; */
+  -o-border-radius: 20px;
 }
 
 .btn-stop {

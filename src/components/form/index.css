@@ -8,9 +8,9 @@ label.ant-form-item-required {
   border-radius: 35px;
   border: 3px solid white !important;
   padding: 45px;
-  height: 40vh;
+  height: 42vh;
   width: 80vw;
-  margin-top: 140px;
+  margin-top: 0px;
   margin-left: 110px;
   -webkit-border-radius: 35px;
   -moz-border-radius: 35px;
@@ -32,23 +32,8 @@ label.ant-form-item-required {
   text-align: center;
   border: 3px solid white !important;
   margin-top: 5px !important;
-}
-
-.react-simple-keyboard {
   width: 100% !important;
-  padding: 20px !important;
-  margin-top: 85px !important;
-  margin-left: 1px !important;
-  margin-right: 100px !important;
-  background-color: darkslateblue !important;
-  height: 20vh !important;
-}
-
-.ant-form-item .ant-form-item-explain-error {
-  font-size: 25px !important;
-  color: red !important;
-  font-weight: 500;
-  margin-top: 25px !important;
+  margin-left: 1px;
 }
 
 .btn-notfilled {
@@ -58,10 +43,19 @@ label.ant-form-item-required {
   text-align: center;
   border: 3px solid white !important;
   margin-top: 5px !important;
+  width: 100% !important;
+  margin-left: 1px;
+}
+
+.ant-form-item .ant-form-item-explain-error {
+  font-size: 25px !important;
+  color: red !important;
+  font-weight: 500;
+  margin-top: 25px !important;
 }
 
 .ant-input-outlined {
-  font-size: 35px !important;
+  font-size: 55px !important;
   width: 765px !important;
 }
 
