@@ -25,31 +25,18 @@ function FormComponent({ question }) {
   const [takeGift, settakeGift] = useState(null);
   const [activeInput, setActiveInput] = useState("");
   const [input, setInput] = useState({
-    name: "",
-    phone: "",
+    useKeyboard: "",
+    useKeyboard2: "",
   });
 
-  const inputName = Form.useWatch("nama", form);
-  const inputPhone = Form.useWatch("nomor", form);
-
-  const inputKeyboardName = Form.useWatch("keyname", form);
-  const inputKeyboardPhone = Form.useWatch("keynomor", form);
+  const useKeyboard = Form.useWatch("nama", form);
+  const useKeyboard2 = Form.useWatch("nomor", form);
 
   const onChanged = (target) => {
-    console.log(target, "====> nama", inputName);
+    console.log(target, "====> nama", useKeyboard);
     let value = "";
-    if (activeInput === "nama") value = (inputName || "") + target;
-    else value = (inputPhone || "") + target;
-    form.setFieldsValue({
-      [activeInput]: value,
-    });
-  };
-
-  const onChangedKeyboard = (target) => {
-    console.log(target, "====> keyname", inputKeyboardName);
-    let value = "";
-    if (activeInput === "keyname") value = (inputKeyboardName || "") + target;
-    else value = (inputKeyboardPhone || "") + target;
+    if (activeInput === "nama") value = (useKeyboard || "") + target;
+    else value = (useKeyboard2 || "") + target;
     form.setFieldsValue({
       [activeInput]: value,
     });
@@ -76,6 +63,8 @@ function FormComponent({ question }) {
   const [timeStop, settimeStop] = useState(null);
   const [outofStock, setoutofStock] = useState(null);
 
+  const Name = Form.useWatch("nama", form);
+  // console.log(Name, "name");
   let query = useQuery();
   let currentID = query.get("id") ?? 0;
   // console.log(question[parseInt(currentID) - 1]);
@@ -104,250 +93,12 @@ function FormComponent({ question }) {
 
   // Function dengan kondisi sebelum mengambil hadiah harus mengisi form nama dan nomor terlebih dahulu
   const handleFinish = () => {
-    if (inputName && inputPhone) {
+    if (useKeyboard && useKeyboard2) {
       setOpenTakeGift(false);
     } else {
       console.error("Tolong isi formnya terlebih dahulu");
     }
   };
-
-  // useEffect(() => {
-  //   function clickHanlder(e) {
-  //     if (
-  //       !(e.target.nodeName === "INPUT") &&
-  //       !e.target.classList.contains("hg-button")
-  //     ) {
-  //       setHiddenKeyboard(true);
-  //     }
-  //   }3
-
-  //   window.addEventListener("click", clickHanlder);
-  //   return window.removeEventListener("click", clickHanlder, true);
-  // }, []);
-
-  // Bagian Keyboard
-  // const Keyboard = {
-  //   elements: {
-  //     main: null,
-  //     keysContainer: null,
-  //     keys: [],
-  //     capsKey: null,
-  //   },
-
-  //   properties: {
-  //     value: "",
-  //     capsLock: false,
-  //     keyboardInputs: null,
-  //     keyLayout: [
-  //       "1",
-  //       "2",
-  //       "3",
-  //       "4",
-  //       "5",
-  //       "6",
-  //       "7",
-  //       "8",
-  //       "9",
-  //       "0",
-  //       "backspace",
-  //       "q",
-  //       "w",
-  //       "e",
-  //       "r",
-  //       "t",
-  //       "y",
-  //       "u",
-  //       "i",
-  //       "o",
-  //       "p",
-  //       "caps",
-  //       "a",
-  //       "s",
-  //       "d",
-  //       "f",
-  //       "g",
-  //       "h",
-  //       "j",
-  //       "k",
-  //       "l",
-  //       "enter",
-  //       "done",
-  //       "z",
-  //       "x",
-  //       "c",
-  //       "v",
-  //       "b",
-  //       "n",
-  //       "m",
-  //       ",",
-  //       ".",
-  //       "?",
-  //       "space",
-  //     ],
-  //   },
-
-  //   init() {
-  //     // create and setup main element
-  //     this.elements.main = document.createElement("div");
-  //     this.elements.main.classList.add("keyboard", "keyboard--hidden");
-  //     document.body.appendChild(this.elements.main);
-
-  //     // create and setup child container component
-  //     this.elements.keysContainer = document.createElement("div");
-  //     this.elements.keysContainer.classList.add("keyboard__keys");
-  //     this.elements.main.appendChild(this.elements.keysContainer);
-
-  //     // create and setup key elements
-  //     this.elements.keysContainer.appendChild(this._createKeys());
-  //     this.elements.keys =
-  //       this.elements.keysContainer.querySelectorAll(".keyboard__key");
-
-  //     // open keyboard for elements with .use-keyboard-input
-  //     this.properties.keyboardInputs = document.querySelectorAll(
-  //       ".use-keyboard-input"
-  //     );
-
-  //     this.properties.keyboardInputs.forEach((element) => {
-  //       element.addEventListener("focus", () => {
-  //         console.log("element", element.id)
-  //         const split = element.id.split("_")[1]
-  //         console.log("split", split)
-  //         console.log(element.value)
-  //         this.open(element.value, (currentValue) => {
-  //           form.setFieldValue(activeInput, element.value)
-
-  //           console.log("currentValue", currentValue)
-  //           // element.value = currentValue;
-  //         });
-  //       });
-  //     });
-  //   },
-
-  //   _createIconHTML(icon_name) {
-  //     return `<span class="material-icons">${icon_name}</span>`;
-  //   },
-
-  //   _createKeyBtn(iconName, class1, onclick, class2) {
-  //     this.keyElement = document.createElement("button");
-
-  //     // add common attributes and classes
-  //     this.keyElement.setAttribute("type", "button");
-  //     this.keyElement.classList.add("keyboard__key");
-
-  //     // add specific listeners and classes
-  //     this.keyElement.classList.add(class1, class2);
-  //     this.keyElement.innerHTML = this._createIconHTML(iconName);
-  //     this.keyElement.addEventListener("click", onclick);
-  //   },
-
-  //   _createKeys() {
-  //     const fragment = document.createDocumentFragment();
-
-  //     this.properties.keyLayout.forEach((key) => {
-  //       const insertLineBreak =
-  //         ["backspace", "p", "enter", "?"].indexOf(key) !== -1;
-
-  //       switch (key) {
-  //         case "backspace":
-  //           this._createKeyBtn("backspace", "keyboard__key--wide", () => {
-  //             this.properties.value = this.properties.value.slice(0, -1);
-  //             this._updateValueInTarget();
-  //           });
-  //           break;
-
-  //         case "caps":
-  //           this._createKeyBtn(
-  //             "keyboard_capslock",
-  //             "keyboard__key--activatable",
-  //             () => {
-  //               this.elements.capsKey.classList.toggle("keyboard__key--active");
-  //               this._toggleCapsLock();
-  //             },
-  //             "keyboard__key--wide"
-  //           );
-  //           this.elements.capsKey = this.keyElement;
-  //           break;
-
-  //         case "enter":
-  //           this._createKeyBtn("keyboard_return", "keyboard__key--wide", () => {
-  //             this.properties.value += "\n";
-  //             this._updateValueInTarget();
-  //           });
-  //           break;
-
-  //         case "space":
-  //           this._createKeyBtn(
-  //             "space_bar",
-  //             "keyboard__key--extra--wide",
-  //             () => {
-  //               this.properties.value += " ";
-  //               this._updateValueInTarget();
-  //             }
-  //           );
-  //           break;
-
-  //         case "done":
-  //           this._createKeyBtn(
-  //             "check_circle",
-  //             "keyboard__key--dark",
-  //             () => {
-  //               this.close();
-  //               this._updateValueInTarget();
-  //             },
-  //             "keyboard__key--wide"
-  //           );
-  //           break;
-
-  //         default:
-  //           this._createKeyBtn();
-  //           this.keyElement.textContent = key.toLowerCase();
-
-  //           this.keyElement.addEventListener("click", () => {
-  //             this.properties.value += this.properties.capsLock
-  //               ? key.toUpperCase()
-  //               : key.toLowerCase();
-  //             this._updateValueInTarget();
-  //           });
-  //           break;
-  //       }
-
-  //       fragment.appendChild(this.keyElement);
-
-  //       if (insertLineBreak) {
-  //         fragment.appendChild(document.createElement("br"));
-  //       }
-  //     });
-  //     return fragment;
-  //   },
-
-  //   _updateValueInTarget() {
-  //     this.properties.keyboardInputs.forEach((keyboard) => {
-  //       keyboard.value = this.properties.value;
-  //     });
-  //   },
-
-  //   _toggleCapsLock() {
-  //     this.properties.capsLock = !this.properties.capsLock;
-
-  //     for (let key of this.elements.keys) {
-  //       if (key.childElementCount === 0) {
-  //         key.textContent = this.properties.capsLock
-  //           ? key.textContent.toUpperCase()
-  //           : key.textContent.toLowerCase();
-  //       }
-  //     }
-  //   },
-
-  //   open(initialValue, oninput) {
-  //     this.properties.value = initialValue || "";
-  //     this.elements.main.classList.remove("keyboard--hidden");
-  //   },
-
-  //   close() {
-  //     this.properties.value = this.properties.value;
-  //     this.elements.main.classList.add("keyboard--hidden");
-  //   },
-  // };
 
   const Keyboard = {
     elements: {
@@ -427,28 +178,57 @@ function FormComponent({ question }) {
 
       // open keyboard for elements with .use-keyboard-input
       this.properties.keyboardInputs = document.querySelectorAll(
-        ".use-keyboard-input",
+        ".use-keyboard-input"
       );
 
+      console.log(this.properties.keyboardInputs, "input keyboard");
       this.properties.keyboardInputs.forEach((element) => {
         element.addEventListener("focus", () => {
           this.open(element.value, (currentValue) => {
-            console.log("current value", currentValue)
+            console.log("current value", currentValue);
             element.value = currentValue;
           });
         });
       });
-
       
-    this.properties.keyboardInputs2 = document.querySelectorAll(
-      ".use-keyboard-input2",
-    );
 
-    this.properties.keyboardInputs2.forEach((element) => {
-      element.addEventListener("focus", () => {
-        this.close()
+      const useKeyboard = () => {
+        const [input, setInput] = useState("");
+
+        useEffect(() => {
+          setInput("");
+        });
+
+        const handleInput = (targetCharacter) => {
+          setInput((prevState) => prevState + targetCharacter);
+        };
+
+        return { input, handleInput };
+      };
+
+      const useKeyboard2 = () => {
+        const [input, setInput] = useState("");
+
+        useEffect(() => {
+          setInput("");
+        });
+
+        const handleInput = (targetCharacter) => {
+          setInput((prevState) => prevState + targetCharacter);
+        };
+
+        return { input, handleInput };
+      };
+
+      this.properties.keyboardInputs2 = document.querySelectorAll(
+        ".use-keyboard-input2"
+      );
+
+      this.properties.keyboardInputs2.forEach((element) => {
+        element.addEventListener("focus", () => {
+          this.close();
+        });
       });
-    });
     },
 
     _createIconHTML(icon_name) {
@@ -550,7 +330,9 @@ function FormComponent({ question }) {
 
     _updateValueInTarget() {
       this.properties.keyboardInputs.forEach((keyboard) => {
+        console.log(keyboard.value, "Input Nama");
         keyboard.value = this.properties.value;
+        form.setFieldValue("nama", keyboard.value);
       });
     },
 
@@ -655,26 +437,56 @@ function FormComponent({ question }) {
 
       // open keyboard for elements with .use-keyboard-input
       this.properties.keyboardInputs = document.querySelectorAll(
-        ".use-keyboard-input2",
+        ".use-keyboard-input2"
       );
+
       this.properties.keyboardInputs.forEach((element) => {
         element.addEventListener("focus", () => {
           this.open(element.value, (currentValue) => {
+            console.log("current value", currentValue);
             element.value = currentValue;
+            form.setFieldValue("nomor", currentValue);
           });
         });
       });
 
+      const useKeyboard = () => {
+        const [input, setInput] = useState("");
+
+        useEffect(() => {
+          setInput("");
+        });
+
+        const handleInput = (targetCharacter) => {
+          setInput((prevState) => prevState + targetCharacter);
+        };
+
+        return { input, handleInput };
+      };
+
+      const useKeyboard2 = () => {
+        const [input, setInput] = useState("");
+
+        useEffect(() => {
+          setInput("");
+        });
+
+        const handleInput = (targetCharacter) => {
+          setInput((prevState) => prevState + targetCharacter);
+        };
+
+        return { input, handleInput };
+      };
+
       this.properties.keyboardInputs2 = document.querySelectorAll(
-        ".use-keyboard-input",
+        ".use-keyboard-input"
       );
-  
+
       this.properties.keyboardInputs2.forEach((element) => {
         element.addEventListener("focus", () => {
-          this.close()
+          this.close();
         });
       });
-
     },
 
     _createIconHTML(icon_name) {
@@ -776,7 +588,9 @@ function FormComponent({ question }) {
 
     _updateValueInTarget() {
       this.properties.keyboardInputs.forEach((keyboard) => {
-        keyboard.value2 = this.properties.value;
+        keyboard.value = this.properties.value;
+        console.log(keyboard.value, "Input Nomor");
+        form.setFieldValue("nomor", keyboard.value);
       });
     },
 
@@ -907,30 +721,30 @@ function FormComponent({ question }) {
               label="NAMA"
               name="nama"
               colon={false}
-              rules={[
-                {
-                  required: false,
-                  message: "Please input your name",
-                },
-                () => ({
-                  validator(_, value) {
-                    console.log(value.length, "tes");
-                    if (value.length < 25) {
-                      return Promise.resolve();
-                    }
-                    return Promise.reject("Maximum character name 25");
-                  },
-                }),
-              ]}
+              // rules={[
+              //   {
+              //     required: false,
+              //     message: "Please input your name",
+              //   },
+              //   () => ({
+              //     validator(_, value) {
+              //       console.log(value.length, "tes");
+              //       if (value.length < 25) {
+              //         return Promise.resolve();
+              //       }
+              //       return Promise.reject("Maximum character name 25");
+              //     },
+              //   }),
+              // ]}
             >
               <Input
                 size="large"
                 className="use-keyboard-input"
-                onFocus={() => {
-                  // setHiddenKeyboard(false);
+                // onFocus={() => {
+                //   // setHiddenKeyboard(false);
 
-                  setActiveInput("nama");
-                }}
+                //   setActiveInput("nama");
+                // }}
               />
             </Form.Item>
 
@@ -938,28 +752,28 @@ function FormComponent({ question }) {
               label="NOMOR HANDPHONE"
               name="nomor"
               colon={false}
-              rules={[
-                {
-                  required: false,
-                  message: "Please input your number",
-                },
-                () => ({
-                  validator(_, value) {
-                    console.log(value.length, "tes");
-                    if (value.length > 3) {
-                      return Promise.resolve();
-                    }
-                    return Promise.reject("Minimum your number 3");
-                  },
-                }),
-              ]}
+              // rules={[
+              //   {
+              //     required: false,
+              //     message: "Please input your number",
+              //   },
+              //   () => ({
+              //     validator(_, value) {
+              //       console.log(value.length, "tes");
+              //       if (value.length > 3) {
+              //         return Promise.resolve();
+              //       }
+              //       return Promise.reject("Minimum your number 3");
+              //     },
+              //   }),
+              // ]}
             >
               <Input
                 className="use-keyboard-input2"
                 size="large"
-                onFocus={() => {
-                  setActiveInput("nomor");
-                }}
+                // onFocus={() => {
+                //   setActiveInput("nomor");
+                // }}
               />
             </Form.Item>
 
@@ -1003,7 +817,7 @@ function FormComponent({ question }) {
             ></Form.Item>
 
             <Form.Item>
-              {inputName && inputPhone ? (
+              {useKeyboard && useKeyboard2 ? (
                 <Button
                   onClick={() => Submit()}
                   type="primary"
