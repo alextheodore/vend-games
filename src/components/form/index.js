@@ -33,7 +33,7 @@ function FormComponent({ question }) {
   const useKeyboard2 = Form.useWatch("nomor", form);
 
   const onChanged = (target) => {
-    console.log(target, "====> nama", useKeyboard);
+    // console.log(target, "====> nama", useKeyboard);
     let value = "";
     if (activeInput === "nama") value = (useKeyboard || "") + target;
     else value = (useKeyboard2 || "") + target;
@@ -62,6 +62,7 @@ function FormComponent({ question }) {
   const [falseAnswer, setfalseAnswer] = useState(null);
   const [timeStop, settimeStop] = useState(null);
   const [outofStock, setoutofStock] = useState(null);
+  const [items, setItems] = useState([]);
 
   const Name = Form.useWatch("nama", form);
   // console.log(Name, "name");
@@ -190,7 +191,6 @@ function FormComponent({ question }) {
           });
         });
       });
-      
 
       const useKeyboard = () => {
         const [input, setInput] = useState("");
@@ -632,11 +632,16 @@ function FormComponent({ question }) {
         console.log(data);
         const parser = new DOMParser();
         const dataxml = parser.parseFromString(`${data}`, "text/xml");
-        console.log(dataxml);
+        // console.log(dataxml, "dataxml");
         const status = dataxml.getElementsByTagName("status")[0].textContent;
-        console.log(status);
+        const productName = dataxml.getElementsByTagName("productName")[0].textContent;
+        console.log(productName, "product name")
+        // console.log(status);
+        const ProductName = (localStorage.getItem('productName'));
+        // console.log(items, "product name")
         if (status === "101") {
           setOpenTakeGift(true);
+          localStorage.setItem("productName", productName )
         }
       })
       .catch((err) => console.log(err));
@@ -729,7 +734,7 @@ function FormComponent({ question }) {
               //   () => ({
               //     validator(_, value) {
               //       console.log(value.length, "tes");
-              //       if (value.length < 25) {
+              //       if (value.length < 2) {
               //         return Promise.resolve();
               //       }
               //       return Promise.reject("Maximum character name 25");
