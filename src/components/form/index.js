@@ -642,13 +642,13 @@ function FormComponent({ question }) {
         // const retrievedDate = (localStorage)
         // console.log(items, "product name")
         if (status === "101") {
-          const date = dayjs().format("YYYY MM-DDTHH:mm:ss SSS [Z] A");
+          const date = dayjs().format("YYYY MM-DD-HH:mm:ss SSS [Z] A");
           const name = form.getFieldsValue().nama;
           const nomor = form.getFieldsValue().nomor;
           
           setOpenTakeGift(true);
           console.log(date);
-          localStorage.setItem(date, productName + "||"+ name + "||" + nomor);
+          localStorage.setItem(date, name + "," + nomor + "," + productName);
           // localStorage.setItem('dispensedDate', dispensedDate);
           //
           // localStorage.setItem("productName", productName )
