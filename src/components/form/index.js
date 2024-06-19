@@ -16,6 +16,7 @@ import { dummyData } from "../../dummy";
 import "./index.css";
 import axios from "axios";
 import "./keyboard.css";
+import dayjs from "dayjs";
 
 function FormComponent({ question }) {
   const [form] = Form.useForm();
@@ -330,8 +331,8 @@ function FormComponent({ question }) {
 
     _updateValueInTarget() {
       this.properties.keyboardInputs.forEach((keyboard) => {
-        console.log(keyboard.value, "Input Nama");
         keyboard.value = this.properties.value;
+        console.log(keyboard.value, "Input Nama");
         form.setFieldValue("nama", keyboard.value);
       });
     },
@@ -635,13 +636,25 @@ function FormComponent({ question }) {
         // console.log(dataxml, "dataxml");
         const status = dataxml.getElementsByTagName("status")[0].textContent;
         const productName = dataxml.getElementsByTagName("productName")[0].textContent;
-        console.log(productName, "product name")
+        console.log(productName, "product name");
         // console.log(status);
-        const ProductName = (localStorage.getItem('productName'));
+        // const ProductName = (localStorage.getItem('productName'));
+        // const retrievedDate = (localStorage)
         // console.log(items, "product name")
         if (status === "101") {
+          const date = dayjs().format("YYYY MM-DDTHH:mm:ss SSS [Z] A");
+          const name = form.getFieldsValue().nama;
+          const nomor = form.getFieldsValue().nomor;
+          
           setOpenTakeGift(true);
-          localStorage.setItem("productName", productName )
+          console.log(date);
+          localStorage.setItem(date, productName + "||"+ name + "||" + nomor);
+          // localStorage.setItem('dispensedDate', dispensedDate);
+          //
+          // localStorage.setItem("productName", productName )
+        }
+        else {
+          navigate("/")
         }
       })
       .catch((err) => console.log(err));
@@ -661,8 +674,6 @@ function FormComponent({ question }) {
       </h1>
     </div>
   );
-
-  console.log(openTakeGift);
 
   return (
     <>
