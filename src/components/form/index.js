@@ -627,7 +627,7 @@ function FormComponent({ question }) {
     // console.log("jatoh");
     axios({
       method: "get",
-      url: "https://vmdummy.onrender.com/vendmart/api/dispenseRandom?sensor=NO",
+      url: "http://localhost:8080/vendmart/api/dispenseRandom?sensor=NO",
     })
       .then(({ data }) => {
         console.log(data);
@@ -642,7 +642,7 @@ function FormComponent({ question }) {
         // const retrievedDate = (localStorage)
         // console.log(items, "product name")
         if (status === "101") {
-          const date = dayjs().format("YYYY MM-DD-HH:mm:ss SSS [Z] A");
+          const date = dayjs().format("YYYY MM-DD-HH:mm:ss");
           const name = form.getFieldsValue().nama;
           const nomor = form.getFieldsValue().nomor;
           
