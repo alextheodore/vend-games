@@ -12,7 +12,7 @@ import Check from "../../assets/check.gif";
 import Error from "../../assets/err.gif";
 import TimeOut from "../../assets/timeout.gif";
 import Gift from "../../assets/gift.gif";
-import OutofStock from "../../assets/outofstock.png";
+import SoldOut from "../../assets/soldout.jpeg";
 import Question from "../question";
 import { useEffect, useRef } from "react";
 import { dummyData } from "../../dummy";
@@ -25,15 +25,19 @@ function StartComponent({ question }) {
   const [openCorrectAnswer, setOpenCorrectAnswer] = useState(false);
   const [openFalseAnswer, setOpenFalseAnswer] = useState(false);
   const [openTimeStop, setOpenTimeStop] = useState(false);
-  const [openOutOfStock, setOpenOutOfStock] = useState(false);
+  const [openSoldOut, setOpenSoldOut] = useState(false);
   const [correctAnswer, setcorrectAnswer] = useState(null);
   const [falseAnswer, setfalseAnswer] = useState(null);
   const [timeStop, settimeStop] = useState(null);
-  const [outofStock, setoutofStock] = useState(null);
+  const [soldOut, setsoldOut] = useState(null);
   const [openTakeGift, setOpenTakeGift] = useState(false);
   const [hiddenKeyboard, setHiddenKeyboard] = useState(true);
   const [activeInput, setActiveInput] = useState("");
   const [form] = Form.useForm();
+  const [counterSecond, setCounterSecond] = useState(0);
+  // const [counter, setCounter] = useState(15);
+  const [time, setTime] = useState("");
+  const [status, setStatus] = useState("pause");
 
   let query = useQuery();
   let currentID = query.get("id") ?? 0;
@@ -43,6 +47,7 @@ function StartComponent({ question }) {
     setOpen(true);
   };
   const handleOk = (e) => {
+    startCounter();
     const intID = parseInt(currentID) + 1;
     if (parseInt(currentID) === dummyData.length) {
       setOpenTimeStop(false);
@@ -84,7 +89,7 @@ function StartComponent({ question }) {
         // const remainingQty = 0; // Set remainingQty sama dengan 0
         console.log(remainingQty);
         if (remainingQty === "0") {
-          setOpenOutOfStock(true); // Test jika stoknya 0, akan menampilkan modal stok habis
+          setOpenSoldOut(true); // Test jika stoknya 0, akan menampilkan modal stok habis
         }
       })
 
@@ -94,9 +99,16 @@ function StartComponent({ question }) {
   //Axios untuk ambil hadiah
 
   useEffect(() => {
-    if (timer >= 0) {
+    let secondCounterId;
+    let timerId;
+    if (timer > 0 && status === "working") {
+      secondCounterId = setTimeout(
+        () => setCounterSecond(counterSecond + 1),
+        1000
+      );
+      timerId = setTimeout(() => setTimer(timer - 1), 1000);
       const interval = setInterval(() => {
-        if (timer === 0) {
+        if (timer === 1) {
           // const intID = parseInt(currentID) + 1;
           if (parseInt(currentID) > 0) {
             // Kondisi ketika halaman start muncul, maka belum ada timer waktunya (15 detik), lalu ketika klik tombol selanjutnya baru masuk ke nomor 1 dan ada timernya 15 detik
@@ -122,9 +134,33 @@ function StartComponent({ question }) {
         }
       }, 1000);
 
-      return () => clearInterval(interval);
+      return () => {
+        clearInterval(interval);
+        clearTimeout(timerId);
+        clearTimeout(secondCounterId);
+      };
     }
-  }, [timer]);
+  }, [timer, counterSecond, timer, status]);
+
+  // useEffect(() => {
+  //   let secondCounterId;
+  //   let counterId;
+  //   if (status === "working") {
+  //     secondCounterId = setTimeout(
+  //       () => setCounterSecond(counterSecond + 1),
+  //       1000
+  //     );
+  //     counterId = setTimeout(() => setCounter(counter - 1), 1000);
+  //   }
+  //   return () => {
+  //     clearTimeout(counterId);
+  //     clearTimeout(secondCounterId);
+  //   };
+  // }, [counterSecond, counter, status]);
+
+  const startCounter = () => {
+    setStatus("working");
+  };
 
   const modalFooter = (
     <div style={{ textAlign: "center", paddingRight: "90px" }}>
@@ -138,24 +174,33 @@ function StartComponent({ question }) {
     </div>
   );
 
-  const modalFooterCorrectAnswer = (
-    <div style={{ position: "relative" }}>
-      <Button
-        className="btn-correct-answer"
-        onClick={handleOk}
-        type={"primary"}
-        style={{
-          position: "absolute",
-          bottom: "-345px",
-          left: "41.7%",
-          transform: "translateX(-50%)",
-          backgroundColor: "#FF7F50",
-        }}
-      >
-        Selanjutnya
-      </Button>
-    </div>
-  );
+  function modalFooterCorrectAnswer() {
+    const intID = parseInt(currentID) + 1;
+    if (openCorrectAnswer === true) {
+      setTimeout(() => {
+        setTimer(15);
+        handleOk()
+      }, 3000);
+    }
+    return (
+      <div style={{ position: "relative" }}>
+        <Button
+          className="btn-correct-answer"
+          onClick={handleOk}
+          type={"primary"}
+          style={{
+            position: "absolute",
+            bottom: "-345px",
+            left: "41.7%",
+            transform: "translateX(-50%)",
+            backgroundColor: "#FF7F50",
+          }}
+        >
+          Selanjutnya
+        </Button>
+      </div>
+    );
+  }
 
   const modalFooterFalseAnswer = (
     <div style={{ position: "relative" }}>
@@ -195,7 +240,7 @@ function StartComponent({ question }) {
     </div>
   );
 
-  const modalFooterOutofStock = (
+  const modalFooterSoldOut = (
     <div style={{ position: "relative" }}>
       <h1
         style={{
@@ -225,6 +270,7 @@ function StartComponent({ question }) {
 
   const answer = (data) => {
     console.log("answer data ->", data);
+    // setTimer(0);
     if (data.status === true) {
       setcorrectAnswer(data.answer);
       setOpenCorrectAnswer(true);
@@ -263,16 +309,18 @@ function StartComponent({ question }) {
       .catch((err) => console.log(err));
   };
 
-  const FormInput = ({onFocus}) => {};
+  const FormInput = ({ onFocus }) => {};
   const inputRef = useRef(null);
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.focus(); // Autofocus
       if (FormInput) {
-        FormInput({ scan }); // Call onFocus 
+        FormInput({ scan }); // Call onFocus
       }
     }
-  }, [Input]); 
+  }, [Input]);
+
+  console.log(status, "===============");
 
   return (
     <div className="bgr">
@@ -307,7 +355,11 @@ function StartComponent({ question }) {
         </div>
         <hr
           className="line"
-          style={{ marginLeft: "115px", marginTop: "-20px" }}
+          style={{
+            marginLeft: "136px",
+            marginTop: "-20px",
+            marginRight: "40px",
+          }}
         ></hr>
         <Modal
           centered
@@ -361,7 +413,7 @@ function StartComponent({ question }) {
             style: { visibility: "hidden" },
           }}
           closable={false}
-          footer={modalFooterCorrectAnswer}
+          footer={() => modalFooterCorrectAnswer()}
           width={900}
         >
           <img src={Check} style={{ width: "95%" }} />
@@ -449,7 +501,7 @@ function StartComponent({ question }) {
         <Modal
           centered
           title="- BRI QUIZ -"
-          open={openOutOfStock}
+          open={openSoldOut}
           onOk={(e) => handleOk(e)}
           okButtonProps={{
             disabled: true,
@@ -460,10 +512,10 @@ function StartComponent({ question }) {
             style: { visibility: "hidden" },
           }}
           closable={false}
-          footer={modalFooterOutofStock}
+          footer={modalFooterSoldOut}
           width={900}
         >
-          <img src={OutofStock} style={{ width: "95%" }} />
+          <img src={SoldOut} style={{ width: "95%" }} />
           <text
             className="stok-BRI"
             style={{
@@ -471,7 +523,7 @@ function StartComponent({ question }) {
               padding: "10px",
             }}
           >
-            {outofStock}
+            {soldOut}
           </text>
         </Modal>
 
@@ -486,6 +538,8 @@ function StartComponent({ question }) {
           <Question
             data={question[parseInt(currentID) - 1]}
             onClickAnswer={answer}
+            setStatus={setStatus}
+            setTimer={setTimer}
           />
           <h1
             style={{ fontSize: "45px", color: "white", paddingBottom: "3px" }}

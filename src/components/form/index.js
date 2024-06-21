@@ -737,30 +737,10 @@ function FormComponent({ question }) {
               label="NAMA"
               name="nama"
               colon={false}
-              // rules={[
-              //   {
-              //     required: false,
-              //     message: "Please input your name",
-              //   },
-              //   () => ({
-              //     validator(_, value) {
-              //       console.log(value.length, "tes");
-              //       if (value.length < 2) {
-              //         return Promise.resolve();
-              //       }
-              //       return Promise.reject("Maximum character name 25");
-              //     },
-              //   }),
-              // ]}
             >
               <Input
                 size="large"
                 className="use-keyboard-input"
-                // onFocus={() => {
-                //   // setHiddenKeyboard(false);
-
-                //   setActiveInput("nama");
-                // }}
               />
             </Form.Item>
 
@@ -768,28 +748,10 @@ function FormComponent({ question }) {
               label="NOMOR HANDPHONE"
               name="nomor"
               colon={false}
-              // rules={[
-              //   {
-              //     required: false,
-              //     message: "Please input your number",
-              //   },
-              //   () => ({
-              //     validator(_, value) {
-              //       console.log(value.length, "tes");
-              //       if (value.length > 3) {
-              //         return Promise.resolve();
-              //       }
-              //       return Promise.reject("Minimum your number 3");
-              //     },
-              //   }),
-              // ]}
             >
               <Input
                 className="use-keyboard-input2"
                 size="large"
-                // onFocus={() => {
-                //   setActiveInput("nomor");
-                // }}
               />
             </Form.Item>
 

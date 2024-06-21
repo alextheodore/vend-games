@@ -1,7 +1,7 @@
 import React from "react";
 import "./index.css";
 
-function Question({ data, onClickAnswer }) {
+function Question({ data, onClickAnswer, setStatus, setTimer }) {
   return (
     <>
       <div className="question-card">
@@ -15,7 +15,13 @@ function Question({ data, onClickAnswer }) {
             className="answer"
             onClick={(e) => {
               e.preventDefault();
+            
+              setStatus("pause")
+              setTimeout(() => {
+                setTimer(15)
+              }, 3000);
               onClickAnswer(data);
+              
             }}
             key={index}
           >

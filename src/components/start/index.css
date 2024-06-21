@@ -20,7 +20,7 @@
 
 .ant-modal-content {
   width: 92% !important;
-  height: 65vh !important;
+  height: 55vh !important;
   border-radius: 30px !important;
   margin-top: 78px !important;
   padding-top: 120px !important;
@@ -39,7 +39,7 @@
   border-radius: 20px;
   background-color: blue;
   margin-left: 65px;
-  margin-bottom: -5px !important;
+  margin-bottom: 1px !important;
   color: white;
   -webkit-border-radius: 20px;
   -moz-border-radius: 20px;
@@ -87,7 +87,7 @@
 .line {
   background-color: white;
   height: 3px;
-  width: 850px;
+  width: 780px;
   margin-top: -45px;
   margin-bottom: 90px;
 }
