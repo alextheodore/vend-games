@@ -1,3 +1,7 @@
+.bgr {
+  height: 50vh;
+}
+
 .ant-modal-title {
   text-align: center;
   font-size: 70px !important;
@@ -20,7 +24,7 @@
 
 .ant-modal-content {
   width: 92% !important;
-  height: 55vh !important;
+  height: 58vh !important;
   border-radius: 30px !important;
   margin-top: 78px !important;
   padding-top: 120px !important;
@@ -87,7 +91,7 @@
 .line {
   background-color: white;
   height: 3px;
-  width: 780px;
+  width: 770px;
   margin-top: -45px;
   margin-bottom: 90px;
 }

@@ -38,7 +38,9 @@ function StartComponent({ question }) {
   // const [counter, setCounter] = useState(15);
   const [time, setTime] = useState("");
   const [status, setStatus] = useState("pause");
+  // const [timeIntervalId, setTimeIntervalId] = useState(null);
 
+  const [mytime, setMytime] = useState();
   let query = useQuery();
   let currentID = query.get("id") ?? 0;
   console.log(question[parseInt(currentID) - 1]);
@@ -46,7 +48,9 @@ function StartComponent({ question }) {
   const showModal = () => {
     setOpen(true);
   };
+
   const handleOk = (e) => {
+    clearTimeout(mytime);
     startCounter();
     const intID = parseInt(currentID) + 1;
     if (parseInt(currentID) === dummyData.length) {
@@ -54,13 +58,14 @@ function StartComponent({ question }) {
       navigate("form");
       return;
     }
-    console.log(e);
+    // console.log(e);
     setOpen(false);
     setOpenCorrectAnswer(false);
     setOpenFalseAnswer(false);
     setTimer(15);
     navigate(`/?id=${intID}`);
   };
+
   const handleCancel = (e) => {
     console.log(e);
     setOpen(false);
@@ -107,6 +112,10 @@ function StartComponent({ question }) {
         1000
       );
       timerId = setTimeout(() => setTimer(timer - 1), 1000);
+      // return () => {
+      //   clearTimeout(secondCounterId);
+      //   clearTimeout(timeIntervalId);
+      // };
       const interval = setInterval(() => {
         if (timer === 1) {
           // const intID = parseInt(currentID) + 1;
@@ -139,6 +148,7 @@ function StartComponent({ question }) {
         clearTimeout(timerId);
         clearTimeout(secondCounterId);
       };
+    } else {
     }
   }, [timer, counterSecond, timer, status]);
 
@@ -175,11 +185,11 @@ function StartComponent({ question }) {
   );
 
   function modalFooterCorrectAnswer() {
-    const intID = parseInt(currentID) + 1;
+    // const intID = parseInt(currentID) + 1;
     if (openCorrectAnswer === true) {
       setTimeout(() => {
         setTimer(15);
-        handleOk()
+        handleOk();
       }, 3000);
     }
     return (
@@ -202,43 +212,67 @@ function StartComponent({ question }) {
     );
   }
 
-  const modalFooterFalseAnswer = (
-    <div style={{ position: "relative" }}>
-      <Button
-        className="btn-false-answer"
-        onClick={handleOk}
-        type={"primary"}
-        style={{
-          position: "absolute",
-          bottom: "-205px",
-          left: "41.6%",
-          transform: "translateX(-50%)",
-          width: "900px !important",
-          backgroundColor: "#FF7F50",
-        }}
-      >
-        Selanjutnya
-      </Button>
-    </div>
-  );
+  function modalFooterFalseAnswer() {
+    // const intID = parseInt(currentID) + 1;
+    if (openFalseAnswer === true) {
+      setTimeout(() => {
+        setTimer(15);
+        handleOk();
+      }, 3000);
+    }
+    return (
+      <div style={{ position: "relative" }}>
+        <Button
+          className="btn-false-answer"
+          onClick={handleOk}
+          type={"primary"}
+          style={{
+            position: "absolute",
+            bottom: "-205px",
+            left: "41.6%",
+            transform: "translateX(-50%)",
+            width: "900px !important",
+            backgroundColor: "#FF7F50",
+          }}
+        >
+          Selanjutnya
+        </Button>
+      </div>
+    );
+  }
 
-  const modalFooterTimeStop = (
-    <div style={{ position: "relative" }}>
-      <Button
-        className="btn-stop"
-        onClick={handleOk}
-        type={"primary"}
-        style={{
-          position: "absolute",
-          bottom: "-205px",
-          left: "41.5%",
-          transform: "translateX(-50%)",
-        }}
-      >
-        Selanjutnya
-      </Button>
-    </div>
-  );
+  function modalFooterTimeStop() {
+    // const intID = parseInt(currentID) + 1;
+    if (openTimeStop === true) {
+      const time = setTimeout(() => {
+        // setOpen(false);
+        // setOpenCorrectAnswer(false);
+        // setOpenFalseAnswer(false);
+        setTimer(15);
+        handleOk();
+      }, 3000);
+
+      setMytime(time);
+    }
+
+    return (
+      <div style={{ position: "relative" }}>
+        <Button
+          className="btn-stop"
+          onClick={handleOk}
+          type={"primary"}
+          style={{
+            position: "absolute",
+            bottom: "-205px",
+            left: "41.5%",
+            transform: "translateX(-50%)",
+          }}
+        >
+          Selanjutnya
+        </Button>
+      </div>
+    );
+  }
 
   const modalFooterSoldOut = (
     <div style={{ position: "relative" }}>
@@ -293,7 +327,7 @@ function StartComponent({ question }) {
     console.log(e.target.value);
     axios({
       method: "get",
-      url: "https://vmdummy.onrender.com/vendmart/api/dispenseRandom?sensor=NO",
+      url: "https://vmdummy.onrender.com/vendmart/api/dispenseRandom?sensor=YES",
     })
       .then(({ data }) => {
         console.log(data);
@@ -330,7 +364,7 @@ function StartComponent({ question }) {
         </div>
         <div
           className="logo-quiz"
-          style={{ textAlign: "center", paddingTop: "-150px" }}
+          style={{ textAlign: "center", paddingTop: "10px" }}
         >
           <img src={Quiz} style={{ width: "32%", alignItems: "center" }} />
         </div>
@@ -358,7 +392,7 @@ function StartComponent({ question }) {
           style={{
             marginLeft: "136px",
             marginTop: "-20px",
-            marginRight: "40px",
+            marginRight: "20px",
           }}
         ></hr>
         <Modal
@@ -383,7 +417,7 @@ function StartComponent({ question }) {
             style={{ width: "75%", paddingBottom: "5px", paddingTop: "50px" }}
           />
           <h2 style={{ paddingBottom: "10px", fontSize: "30px" }}>
-            Scan QR Code anda pada struk setelah transaksi
+            Scan QR Code anda pada setelah transaksi
           </h2>
           <Input
             ref={inputRef}

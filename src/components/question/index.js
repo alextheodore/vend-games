@@ -9,19 +9,14 @@ function Question({ data, onClickAnswer, setStatus, setTimer }) {
         <img className="card-img" src={data?.picture} />
       </div>
 
-      <div style={{ height: "28vh"}}>
+      <div style={{ height: "28vh" }}>
         {data?.answer.map((data, index) => (
           <button
             className="answer"
             onClick={(e) => {
               e.preventDefault();
-            
-              setStatus("pause")
-              setTimeout(() => {
-                setTimer(15)
-              }, 3000);
+              setStatus("pause");
               onClickAnswer(data);
-              
             }}
             key={index}
           >

@@ -635,7 +635,8 @@ function FormComponent({ question }) {
         const dataxml = parser.parseFromString(`${data}`, "text/xml");
         // console.log(dataxml, "dataxml");
         const status = dataxml.getElementsByTagName("status")[0].textContent;
-        const productName = dataxml.getElementsByTagName("productName")[0].textContent;
+        const productName =
+          dataxml.getElementsByTagName("productName")[0].textContent;
         console.log(productName, "product name");
         // console.log(status);
         // const ProductName = (localStorage.getItem('productName'));
@@ -645,16 +646,15 @@ function FormComponent({ question }) {
           const date = dayjs().format("YYYY MM-DD-HH:mm:ss");
           const name = form.getFieldsValue().nama;
           const nomor = form.getFieldsValue().nomor;
-          
+
           setOpenTakeGift(true);
           console.log(date);
           localStorage.setItem(date, name + "," + nomor + "," + productName);
           // localStorage.setItem('dispensedDate', dispensedDate);
           //
           // localStorage.setItem("productName", productName )
-        }
-        else {
-          navigate("/")
+        } else {
+          navigate("/");
         }
       })
       .catch((err) => console.log(err));
@@ -738,21 +738,11 @@ function FormComponent({ question }) {
               name="nama"
               colon={false}
             >
-              <Input
-                size="large"
-                className="use-keyboard-input"
-              />
+              <Input size="large" className="use-keyboard-input" />
             </Form.Item>
 
-            <Form.Item
-              label="NOMOR HANDPHONE"
-              name="nomor"
-              colon={false}
-            >
-              <Input
-                className="use-keyboard-input2"
-                size="large"
-              />
+            <Form.Item label="NOMOR HANDPHONE" name="nomor" colon={false}>
+              <Input className="use-keyboard-input2" size="large" />
             </Form.Item>
 
             <Modal
