@@ -325,22 +325,27 @@ function StartComponent({ question }) {
 
   const scan = (e) => {
     console.log(e.target.value);
-    axios({
-      method: "get",
-      url: "https://vmdummy.onrender.com/vendmart/api/dispenseRandom?sensor=YES",
-    })
-      .then(({ data }) => {
-        console.log(data);
-        const parser = new DOMParser();
-        const dataxml = parser.parseFromString(`${data}`, "text/xml");
-        console.log(dataxml);
-        const status = dataxml.getElementsByTagName("status")[0].textContent;
-        console.log(status);
-        if (status === "101") {
-          setOpenTakeGift(true);
-        }
+    // e.target.value sama dengan 32
+    if (e.target.value.length === 32) {
+      axios({
+        method: "get",
+        url: "https://vmdummy.onrender.com/vendmart/api/dispenseRandom?sensor=YES",
       })
-      .catch((err) => console.log(err));
+        .then(({ data }) => {
+          console.log(data);
+          const parser = new DOMParser();
+          const dataxml = parser.parseFromString(`${data}`, "text/xml");
+          console.log(dataxml);
+          const status = dataxml.getElementsByTagName("status")[0].textContent;
+          console.log(status);
+          if (status === "101") {
+            setOpenTakeGift(true);
+          }
+        })
+        .catch((err) => console.log(err));
+    }else {
+      console.log("error")
+    }
   };
 
   const FormInput = ({ onFocus }) => {};

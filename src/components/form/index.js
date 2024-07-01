@@ -88,6 +88,7 @@ function FormComponent({ question }) {
     setTimer(15);
     navigate(`/?id=${intID}`);
   };
+
   const handleCancel = (e) => {
     console.log(e);
     setOpen(false);
@@ -311,12 +312,18 @@ function FormComponent({ question }) {
             this._createKeyBtn();
             this.keyElement.textContent = key.toLowerCase();
 
-            this.keyElement.addEventListener("click", () => {
-              this.properties.value += this.properties.capsLock
-                ? key.toUpperCase()
-                : key.toLowerCase();
-              this._updateValueInTarget();
-            });
+            // Disable the key "1" when the active input is "nama"
+            if (activeInput === "Input Nama") {
+              this.keyElement.disabled = true;
+              // this.keyElement.style.opacity = 0.5;
+            } else {
+              this.keyElement.addEventListener("click", () => {
+                this.properties.value += this.properties.capsLock
+                  ? key.toUpperCase()
+                  : key.toLowerCase();
+                this._updateValueInTarget();
+              });
+            }
             break;
         }
 
@@ -329,11 +336,13 @@ function FormComponent({ question }) {
       return fragment;
     },
 
-    _updateValueInTarget() {
+    //update value nama
+    _updateValueInTarget(key) {
       this.properties.keyboardInputs.forEach((keyboard) => {
-        keyboard.value = this.properties.value;
-        console.log(keyboard.value, "Input Nama");
-        form.setFieldValue("nama", keyboard.value);
+        if (this.properties.value.match(/^[a-zA-Z]*$/)) {
+          keyboard.value = this.properties.value;
+          form.setFieldValue("nama", keyboard.value);
+        }
       });
     },
 
@@ -587,11 +596,13 @@ function FormComponent({ question }) {
       return fragment;
     },
 
+    //update value nomor
     _updateValueInTarget() {
       this.properties.keyboardInputs.forEach((keyboard) => {
-        keyboard.value = this.properties.value;
-        console.log(keyboard.value, "Input Nomor");
-        form.setFieldValue("nomor", keyboard.value);
+        if (this.properties.value.match(/^[0-9]*$/)) {
+          keyboard.value = this.properties.value;
+          form.setFieldValue("nomor", keyboard.value);
+        }
       });
     },
 
