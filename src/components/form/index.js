@@ -342,6 +342,11 @@ function FormComponent({ question }) {
         if (this.properties.value.match(/^[a-zA-Z]*$/)) {
           keyboard.value = this.properties.value;
           form.setFieldValue("nama", keyboard.value);
+          // console.log(form.setFieldValue, "form")
+          // if (keyboard.value.length > 23) {
+          //   alert("Nama tidak boleh lebih dari 23 huruf.");
+          //   return;
+          // }
         }
       });
     },
@@ -748,11 +753,26 @@ function FormComponent({ question }) {
               label="NAMA"
               name="nama"
               colon={false}
+              rules={[
+                {
+                  max: 23,
+                  message: "Nama tidak boleh lebih dari 23 huruf.",
+                },
+              ]}
             >
               <Input size="large" className="use-keyboard-input" />
             </Form.Item>
 
-            <Form.Item label="NOMOR HANDPHONE" name="nomor" colon={false}>
+            <Form.Item label="NOMOR HANDPHONE" name="nomor" 
+            colon={false}
+            rules={[
+              {
+                min: 3,
+                max: 15, 
+                message: "Nomor handphone minimal harus 3 angka dan maksimal 15 angka",
+              }
+            ]}
+            >
               <Input className="use-keyboard-input2" size="large" />
             </Form.Item>
 

@@ -35,10 +35,8 @@ function StartComponent({ question }) {
   const [activeInput, setActiveInput] = useState("");
   const [form] = Form.useForm();
   const [counterSecond, setCounterSecond] = useState(0);
-  // const [counter, setCounter] = useState(15);
   const [time, setTime] = useState("");
   const [status, setStatus] = useState("pause");
-  // const [timeIntervalId, setTimeIntervalId] = useState(null);
 
   const [mytime, setMytime] = useState();
   let query = useQuery();
@@ -112,10 +110,6 @@ function StartComponent({ question }) {
         1000
       );
       timerId = setTimeout(() => setTimer(timer - 1), 1000);
-      // return () => {
-      //   clearTimeout(secondCounterId);
-      //   clearTimeout(timeIntervalId);
-      // };
       const interval = setInterval(() => {
         if (timer === 1) {
           // const intID = parseInt(currentID) + 1;
@@ -151,22 +145,6 @@ function StartComponent({ question }) {
     } else {
     }
   }, [timer, counterSecond, timer, status]);
-
-  // useEffect(() => {
-  //   let secondCounterId;
-  //   let counterId;
-  //   if (status === "working") {
-  //     secondCounterId = setTimeout(
-  //       () => setCounterSecond(counterSecond + 1),
-  //       1000
-  //     );
-  //     counterId = setTimeout(() => setCounter(counter - 1), 1000);
-  //   }
-  //   return () => {
-  //     clearTimeout(counterId);
-  //     clearTimeout(secondCounterId);
-  //   };
-  // }, [counterSecond, counter, status]);
 
   const startCounter = () => {
     setStatus("working");
@@ -245,13 +223,9 @@ function StartComponent({ question }) {
     // const intID = parseInt(currentID) + 1;
     if (openTimeStop === true) {
       const time = setTimeout(() => {
-        // setOpen(false);
-        // setOpenCorrectAnswer(false);
-        // setOpenFalseAnswer(false);
         setTimer(15);
         handleOk();
       }, 3000);
-
       setMytime(time);
     }
 
@@ -325,7 +299,6 @@ function StartComponent({ question }) {
 
   const scan = (e) => {
     console.log(e.target.value);
-    // e.target.value sama dengan 32
     if (e.target.value.length === 32) {
       axios({
         method: "get",
