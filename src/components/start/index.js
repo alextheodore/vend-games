@@ -60,6 +60,7 @@ function StartComponent({ question }) {
     setOpen(false);
     setOpenCorrectAnswer(false);
     setOpenFalseAnswer(false);
+    setOpenTimeStop(false);
     setTimer(15);
     navigate(`/?id=${intID}`);
   };
@@ -76,7 +77,7 @@ function StartComponent({ question }) {
   useEffect(() => {
     axios({
       method: "get",
-      url: "https://vmdummy.onrender.com/vendmart/api/checkSlotAvailability",
+      url: "http://localhost:8080/vendmart/api/dispenseRandom?sensor=NO",
     })
       .then(({ data }) => {
         navigate("/");
