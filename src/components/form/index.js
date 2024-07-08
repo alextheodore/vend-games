@@ -47,6 +47,7 @@ function FormComponent({ question }) {
   const onFinish = (values) => {
     console.log("Success:", values);
   };
+
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
@@ -667,8 +668,10 @@ function FormComponent({ question }) {
           console.log(date);
           localStorage.setItem(date, name + "," + nomor + "," + productName);
           // localStorage.setItem('dispensedDate', dispensedDate);
-          //
           // localStorage.setItem("productName", productName )
+          setTimeout(() => {
+            navigate("/");
+          }, 2000);
         } else {
           navigate("/");
         }
@@ -763,15 +766,18 @@ function FormComponent({ question }) {
               <Input size="large" className="use-keyboard-input" />
             </Form.Item>
 
-            <Form.Item label="NOMOR HANDPHONE" name="nomor" 
-            colon={false}
-            rules={[
-              {
-                min: 3,
-                max: 15, 
-                message: "Nomor handphone minimal harus 3 angka dan maksimal 15 angka",
-              }
-            ]}
+            <Form.Item
+              label="NOMOR HANDPHONE"
+              name="nomor"
+              colon={false}
+              rules={[
+                {
+                  min: 3,
+                  max: 15,
+                  message:
+                    "Nomor handphone minimal harus 3 angka dan maksimal 15 angka",
+                },
+              ]}
             >
               <Input className="use-keyboard-input2" size="large" />
             </Form.Item>
@@ -838,7 +844,7 @@ function FormComponent({ question }) {
             style={{
               fontSize: "45px",
               color: "white",
-              paddingTop: "135px",
+              paddingTop: "40px",
               marginLeft: "500px",
             }}
           >

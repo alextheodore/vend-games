@@ -38,7 +38,7 @@ function StartComponent({ question }) {
   const [time, setTime] = useState("");
   const [status, setStatus] = useState("pause");
 
-  const [mytime, setMytime] = useState();
+  // const [mytime, setMytime] = useState();
   let query = useQuery();
   let currentID = query.get("id") ?? 0;
   console.log(question[parseInt(currentID) - 1]);
@@ -47,8 +47,35 @@ function StartComponent({ question }) {
     setOpen(true);
   };
 
+  // function handleOk(e) {
+  //   clearTimeout(mytime);
+  //   startCounter();
+  //   const intID = parseInt(currentID) + 1;
+  //   if (parseInt(currentID) === dummyData.length) {
+  //     setOpenTimeStop(false);
+  //     navigate("form");
+  //     return;
+  //   }
+  //   // console.log(e);
+  //   setOpen(false);
+  //   setOpenCorrectAnswer(false);
+  //   setOpenFalseAnswer(false);
+  //   setOpenTimeStop(false);
+  //   setTimer(15);
+  //   navigate(`/?id=${intID}`);
+  // }
+
+  let intervalmodalFalseAnswer = null;
+
+  function clearIntervalFalseAns() {
+    clearTimeout(intervalmodalFalseAnswer);
+  }
+
+  useEffect(() => {
+    clearIntervalFalseAns()
+  }, [clearIntervalFalseAns])
+
   const handleOk = (e) => {
-    clearTimeout(mytime);
     startCounter();
     const intID = parseInt(currentID) + 1;
     if (parseInt(currentID) === dummyData.length) {
@@ -56,7 +83,6 @@ function StartComponent({ question }) {
       navigate("form");
       return;
     }
-    // console.log(e);
     setOpen(false);
     setOpenCorrectAnswer(false);
     setOpenFalseAnswer(false);
@@ -77,7 +103,8 @@ function StartComponent({ question }) {
   useEffect(() => {
     axios({
       method: "get",
-      url: "http://localhost:8080/vendmart/api/dispenseRandom?sensor=NO",
+      // url: "http://localhost:8080/vendmart/api/checkSlotAvailability",
+      url: "https://localhost:3000/vendmart/api/checkSlotAvailability",
     })
       .then(({ data }) => {
         navigate("/");
@@ -96,7 +123,6 @@ function StartComponent({ question }) {
           setOpenSoldOut(true); // Test jika stoknya 0, akan menampilkan modal stok habis
         }
       })
-
       .catch((err) => console.log(err));
   }, []);
 
@@ -163,14 +189,26 @@ function StartComponent({ question }) {
     </div>
   );
 
-  function modalFooterCorrectAnswer() {
-    // const intID = parseInt(currentID) + 1;
-    if (openCorrectAnswer === true) {
-      setTimeout(() => {
-        setTimer(15);
+  let intervalmodalCorrectAnswer = null;
+  useEffect(() => {
+    return () => {
+      if (intervalmodalCorrectAnswer) {
+        clearInterval(intervalmodalCorrectAnswer);
+      }
+    };
+  }, [intervalmodalCorrectAnswer]);
+
+  const modalFooterCorrectAnswer = () => {
+    intervalmodalCorrectAnswer = setInterval(() => {
+      console.log(intervalmodalCorrectAnswer, "intervalcorrect");
+      if (openCorrectAnswer === true) {
+        // setTimer(15);
         handleOk();
-      }, 3000);
-    }
+      }
+      return () => {
+        clearInterval(intervalmodalCorrectAnswer);
+      };
+    }, 2000);
     return (
       <div style={{ position: "relative" }}>
         <Button
@@ -189,13 +227,14 @@ function StartComponent({ question }) {
         </Button>
       </div>
     );
-  }
+  };
 
   function modalFooterFalseAnswer() {
+    // const ini = "itu";
     // const intID = parseInt(currentID) + 1;
     if (openFalseAnswer === true) {
-      setTimeout(() => {
-        setTimer(15);
+      intervalmodalFalseAnswer = setTimeout(() => {
+        // setTimer(15);
         handleOk();
       }, 3000);
     }
@@ -221,13 +260,12 @@ function StartComponent({ question }) {
   }
 
   function modalFooterTimeStop() {
-    // const intID = parseInt(currentID) + 1;
     if (openTimeStop === true) {
       const time = setTimeout(() => {
         setTimer(15);
         handleOk();
       }, 3000);
-      setMytime(time);
+      // setMytime(time);
     }
 
     return (
@@ -303,7 +341,8 @@ function StartComponent({ question }) {
     if (e.target.value.length === 32) {
       axios({
         method: "get",
-        url: "https://vmdummy.onrender.com/vendmart/api/dispenseRandom?sensor=YES",
+        // url: "http://localhost:8080/vendmart/api/dispenseRandom?sensor=NO",
+        url: "https://localhost:3000/vendmart/api/dispenseRandom?sensor=NO",
       })
         .then(({ data }) => {
           console.log(data);
@@ -317,8 +356,11 @@ function StartComponent({ question }) {
           }
         })
         .catch((err) => console.log(err));
-    }else {
-      console.log("error")
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+    } else {
+      console.log("error");
     }
   };
 
@@ -410,7 +452,7 @@ function StartComponent({ question }) {
             style={{ width: "400px", paddingLeft: "60px" }}
           />
         </Modal>
-        <p>{currentID}</p>
+        {/* <p>{currentID}</p> */}
 
         <Modal
           centered
@@ -426,7 +468,7 @@ function StartComponent({ question }) {
             style: { visibility: "hidden" },
           }}
           closable={false}
-          footer={() => modalFooterCorrectAnswer()}
+          footer={modalFooterCorrectAnswer}
           width={900}
         >
           <img src={Check} style={{ width: "95%" }} />
@@ -457,7 +499,7 @@ function StartComponent({ question }) {
             style: { visibility: "hidden" },
           }}
           closable={false}
-          footer={modalFooterFalseAnswer}
+          footer={() => modalFooterFalseAnswer()}
           width={900}
         >
           <img src={Error} style={{ width: "95%" }} />
@@ -491,7 +533,7 @@ function StartComponent({ question }) {
             style: { visibility: "hidden" },
           }}
           closable={false}
-          footer={modalFooterTimeStop}
+          footer={() => modalFooterTimeStop()}
           width={900}
         >
           <img src={TimeOut} style={{ width: "95%" }} />
