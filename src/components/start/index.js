@@ -47,6 +47,7 @@ function StartComponent({ question }) {
     setOpen(true);
   };
 
+  console.log("rerender");
   // function handleOk(e) {
   //   clearTimeout(mytime);
   //   startCounter();
@@ -65,6 +66,11 @@ function StartComponent({ question }) {
   //   navigate(`/?id=${intID}`);
   // }
 
+  let intervalmodalCorrectAnswer = null;
+  function clearintervalCorrectAns() {
+    clearTimeout(intervalmodalCorrectAnswer);
+  }
+
   let intervalmodalFalseAnswer = null;
 
   function clearIntervalFalseAns() {
@@ -72,11 +78,23 @@ function StartComponent({ question }) {
   }
 
   useEffect(() => {
-    clearIntervalFalseAns()
-  }, [clearIntervalFalseAns])
+    clearIntervalFalseAns();
+  }, [clearIntervalFalseAns]);
+
+  useEffect(() => {
+    if (openCorrectAnswer === true) {
+      intervalmodalCorrectAnswer = setTimeout(() => {
+        handleOk();
+        setTimer(15);
+
+        return () => clearTimeout(intervalmodalCorrectAnswer)
+      }, 3000);
+    }
+  }, [openCorrectAnswer]);
 
   const handleOk = (e) => {
     startCounter();
+    // console.log(handleOk, "handleOK");
     const intID = parseInt(currentID) + 1;
     if (parseInt(currentID) === dummyData.length) {
       setOpenTimeStop(false);
@@ -87,7 +105,7 @@ function StartComponent({ question }) {
     setOpenCorrectAnswer(false);
     setOpenFalseAnswer(false);
     setOpenTimeStop(false);
-    setTimer(15);
+    // setTimer(15);
     navigate(`/?id=${intID}`);
   };
 
@@ -103,8 +121,8 @@ function StartComponent({ question }) {
   useEffect(() => {
     axios({
       method: "get",
-      // url: "http://localhost:8080/vendmart/api/checkSlotAvailability",
-      url: "https://localhost:3000/vendmart/api/checkSlotAvailability",
+      url: "http://localhost:8080/vendmart/api/checkSlotAvailability",
+      // url: "https://localhost:3000/vendmart/api/checkSlotAvailability",
     })
       .then(({ data }) => {
         navigate("/");
@@ -138,6 +156,7 @@ function StartComponent({ question }) {
       );
       timerId = setTimeout(() => setTimer(timer - 1), 1000);
       const interval = setInterval(() => {
+        console.log(interval, "interval");
         if (timer === 1) {
           // const intID = parseInt(currentID) + 1;
           if (parseInt(currentID) > 0) {
@@ -189,31 +208,17 @@ function StartComponent({ question }) {
     </div>
   );
 
-  let intervalmodalCorrectAnswer = null;
-  useEffect(() => {
-    return () => {
-      if (intervalmodalCorrectAnswer) {
-        clearInterval(intervalmodalCorrectAnswer);
-      }
-    };
-  }, [intervalmodalCorrectAnswer]);
+  function modalFooterCorrectAnswer() {
+    // console.log(intervalmodalCorrectAnswer, "intervalcorrect");
 
-  const modalFooterCorrectAnswer = () => {
-    intervalmodalCorrectAnswer = setInterval(() => {
-      console.log(intervalmodalCorrectAnswer, "intervalcorrect");
-      if (openCorrectAnswer === true) {
-        // setTimer(15);
-        handleOk();
-      }
-      return () => {
-        clearInterval(intervalmodalCorrectAnswer);
-      };
-    }, 2000);
     return (
       <div style={{ position: "relative" }}>
         <Button
           className="btn-correct-answer"
-          onClick={handleOk}
+          onClick={() => {
+            handleOk();
+            setTimer(15);
+          }}
           type={"primary"}
           style={{
             position: "absolute",
@@ -227,22 +232,23 @@ function StartComponent({ question }) {
         </Button>
       </div>
     );
-  };
+  }
 
   function modalFooterFalseAnswer() {
-    // const ini = "itu";
-    // const intID = parseInt(currentID) + 1;
     if (openFalseAnswer === true) {
       intervalmodalFalseAnswer = setTimeout(() => {
-        // setTimer(15);
         handleOk();
+        setTimer(15);
       }, 3000);
     }
     return (
       <div style={{ position: "relative" }}>
         <Button
           className="btn-false-answer"
-          onClick={handleOk}
+          onClick={() => {
+            clearInterval(intervalmodalFalseAnswer);
+            handleOk();
+          }}
           type={"primary"}
           style={{
             position: "absolute",
@@ -262,8 +268,8 @@ function StartComponent({ question }) {
   function modalFooterTimeStop() {
     if (openTimeStop === true) {
       const time = setTimeout(() => {
-        setTimer(15);
         handleOk();
+        setTimer(15);
       }, 3000);
       // setMytime(time);
     }
@@ -341,8 +347,8 @@ function StartComponent({ question }) {
     if (e.target.value.length === 32) {
       axios({
         method: "get",
-        // url: "http://localhost:8080/vendmart/api/dispenseRandom?sensor=NO",
-        url: "https://localhost:3000/vendmart/api/dispenseRandom?sensor=NO",
+        url: "http://localhost:8080/vendmart/api/dispenseRandom?sensor=NO",
+        // url: "https://localhost:3000/vendmart/api/dispenseRandom?sensor=NO",
       })
         .then(({ data }) => {
           console.log(data);
